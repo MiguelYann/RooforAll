@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rooforall/ui/pages/login.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
