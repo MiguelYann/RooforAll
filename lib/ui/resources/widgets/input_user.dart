@@ -12,12 +12,12 @@ class UserInput extends StatelessWidget {
     return TextField(
         controller: textInput,
         decoration: InputDecoration(
-          border: OutlineInputBorder(
-              borderSide: BorderSide(style: BorderStyle.solid),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(style: BorderStyle.solid,color: Colors.indigoAccent),
               borderRadius: BorderRadius.all(Radius.circular(10)),
               gapPadding: 20),
-          labelText: 'Email',
-          icon: Icon(iconItem),
+          labelText: labelInput,
+          prefixIcon: Icon(iconItem),
         ));
   }
 }
