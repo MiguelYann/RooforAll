@@ -9,7 +9,7 @@ class UserProvider {
 
   Future<dynamic> logUserWithDio(String anUsername, String aPassword) async {
     var response = await _dio.post('$DEFAULT_URL/login',
-        data: {'username': anUsername, 'password': aPassword});
+        data: jsonEncode({'username': anUsername, 'password': aPassword}));
     print(response.statusCode);
     return response;
   }
@@ -19,7 +19,7 @@ class UserProvider {
       var response = await http.post('$DEFAULT_URL/login',
           body: jsonEncode({'username': aUsername, 'password': aPassword}));
       print(response.statusCode);
-      return response;
+      return response.body;
     } catch (Exception) {
       print('error');
     }
