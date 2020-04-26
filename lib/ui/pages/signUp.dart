@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rooforall/data/repository/registerUser_repository.dart';
+import 'package:rooforall/data/repository/user_repository.dart';
 import 'package:rooforall/ui/pages/login.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
 
@@ -14,7 +14,7 @@ class SignUp extends StatelessWidget {
 
   void _signUp(String username, String mail, String password) async {
     var response =
-        await RegisterUserRepository().registerUser(username, mail, password);
+        await UserRepository().registerUser(username, mail, password);
     print(response);
   }
 
