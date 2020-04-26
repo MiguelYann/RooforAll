@@ -13,8 +13,9 @@ class Login extends StatelessWidget {
 
   void _logUser(String mail, String password) async {
     var response = await UserRepository().logUser(mail, password);
-    print('loguser');
-    print(response);
+
+
+    //TODO HANDLE ERROR
 //    switch (response.statusCode) {
 //      case 200:
 //        print('connected');

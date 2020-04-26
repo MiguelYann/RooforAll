@@ -4,7 +4,6 @@ import 'package:rooforall/ui/pages/login.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
 
 class SignUp extends StatelessWidget {
-//  Color backGroundColor = Utils.colorFromHex('#9f9fa3');
   static const fontText = 'SFPro';
   final TextEditingController _emailEditingController = TextEditingController();
   final TextEditingController _userNameEditingController =
@@ -110,7 +109,6 @@ class SignUp extends StatelessWidget {
               ),
             ),
           ),
-          ////////////   new account///////////////
         ],
       ),
     );
