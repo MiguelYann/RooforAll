@@ -3,17 +3,31 @@ import 'package:rooforall/data/repository/user_repository.dart';
 import 'package:rooforall/ui/pages/signUp.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
 //  Color backGroundColor = Utils.colorFromHex('#9f9fa3');
   static const fontText = 'SFPro';
+
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final TextEditingController _userNameEditingController =
       TextEditingController();
+
   final TextEditingController _passwordEditingController =
       TextEditingController();
 
+  bool isVisiblePassword = false;
+
+  void showPassord() {
+    this.setState(() {
+      isVisiblePassword = !isVisiblePassword;
+    });
+  }
+
   void _logUser(String mail, String password) async {
     var response = await UserRepository().logUser(mail, password);
-
 
     //TODO HANDLE ERROR
 //    switch (response.statusCode) {
@@ -43,7 +57,7 @@ class Login extends StatelessWidget {
             child: Text(
               'Connectez vous',
               style: TextStyle(
-                  fontFamily: fontText,
+                  fontFamily: Login.fontText,
                   fontSize: 25,
                   color: Colors.indigoAccent,
                   fontWeight: FontWeight.bold),
@@ -57,15 +71,18 @@ class Login extends StatelessWidget {
                     width: MediaQuery.of(context).size.width / 1.3,
                     child: UserInput(
                       textInput: _userNameEditingController,
-                      iconItem: Icons.email,
+                      prefixiconItem: Icons.email,
                       labelInput: 'Username',
                     )),
                 Container(
                     margin: EdgeInsets.only(top: 20),
                     width: MediaQuery.of(context).size.width / 1.3,
                     child: UserInput(
+                      showPassword: isVisiblePassword,
+                      setVisiblePassword: this.showPassord,
                       textInput: _passwordEditingController,
-                      iconItem: Icons.vpn_key,
+                      prefixiconItem: Icons.vpn_key,
+                      suffixIconIten: Icons.remove_red_eye,
                       labelInput: 'Password',
                     )),
                 InkWell(
@@ -73,7 +90,7 @@ class Login extends StatelessWidget {
                     child: Text(
                       'Forgot password',
                       style: TextStyle(
-                        fontFamily: fontText,
+                        fontFamily: Login.fontText,
                         color: Colors.indigoAccent,
                         fontWeight: FontWeight.bold,
                       ),
@@ -88,7 +105,7 @@ class Login extends StatelessWidget {
                 'Login',
                 style: TextStyle(
                     color: Colors.white,
-                    fontFamily: fontText,
+                    fontFamily: Login.fontText,
                     fontWeight: FontWeight.bold),
               ),
               color: Colors.indigoAccent,
@@ -104,10 +121,8 @@ class Login extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20),
             child: InkWell(
               onTap: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => SignUp()));
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) => SignUp()));
               },
               child: Text(
                 'Creer un nouveau compte',
