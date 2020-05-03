@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rooforall/data/repository/user_repository.dart';
 import 'package:rooforall/ui/pages/signUp.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Login extends StatefulWidget {
 //  Color backGroundColor = Utils.colorFromHex('#9f9fa3');
@@ -50,10 +51,9 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
+          SvgPicture.asset("assets/images/undraw.svg"),
           Container(
-            margin: EdgeInsets.only(top: 50),
             child: Text(
               'Connectez vous',
               style: TextStyle(
