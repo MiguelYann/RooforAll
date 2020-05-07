@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rooforall/ui/pages/login.dart';
 
+import 'ui/resources/utils/utils.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -9,9 +11,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          fontFamily: 'SFPro',
+          //  primarySwatch: Utils.colorcolorFromHex("#00BFA6"),
         ),
         home: Login());
   }
 }
-
