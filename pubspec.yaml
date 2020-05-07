@@ -68,6 +68,9 @@ flutter:
    - family: SFPro
      fonts:
        - asset: assets/fonts/SF-Pro-Text-Light.otf
+       - asset: assets/fonts/SF-Pro-Rounded-Black.otf
+         weight: 200
+    
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

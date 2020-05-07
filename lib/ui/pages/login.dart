@@ -1,6 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rooforall/data/repository/user_repository.dart';
 import 'package:rooforall/ui/pages/signUp.dart';
+import 'package:rooforall/ui/resources/utils/log_status.dart';
+import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -20,6 +23,7 @@ class _LoginState extends State<Login> {
       TextEditingController();
 
   bool isVisiblePassword = false;
+  LogStatus logStatus = LogStatus.INITIAL;
 
   void showPassord() {
     this.setState(() {
@@ -27,116 +31,174 @@ class _LoginState extends State<Login> {
     });
   }
 
-  void _logUser(String mail, String password) async {
-    var response = await UserRepository().logUser(mail, password);
+  void navigateLoginToRegister(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp()));
+  }
 
-    //TODO HANDLE ERROR
-//    switch (response.statusCode) {
-//      case 200:
-//        print('connected');
-//        break;
-//      case 401:
-//        print('auntorized');
-//        break;
-//      case 403:
-//        print('forbiden');
-//        break;
-//      case 404:
-//        print('not found');
-//    }
+  Widget manageStatusConnection() {
+    switch (logStatus) {
+      case LogStatus.INITIAL:
+        return Container();
+
+      case LogStatus.SUCESS_CONNECT:
+        return Container();
+
+      case LogStatus.FAIL_CONNECT:
+        return Container(
+            child: Text(
+          "Try again",
+          style: TextStyle(
+            color: Colors.red,
+          ),
+        ));
+      default:
+        return Container();
+    }
+  }
+
+  Future<void> _logUser(String mail, String password) async {
+    try {
+      Response response = await UserRepository().logUser(mail, password);
+      print(response.statusCode);
+
+      switch (response.statusCode) {
+        case 200:
+          setState(() {
+            logStatus = LogStatus.SUCESS_CONNECT;
+          });
+          break;
+
+        case 401:
+          setState(() {
+            logStatus = LogStatus.FAIL_CONNECT;
+          });
+          break;
+
+        case 403:
+          setState(() {
+            logStatus = LogStatus.FAIL_CONNECT;
+          });
+          break;
+
+        case 404:
+          setState(() {
+            logStatus = LogStatus.FAIL_CONNECT;
+          });
+          break;
+
+        default:
+          setState(() {
+            logStatus = LogStatus.INITIAL;
+          });
+      }
+    } catch (e) {
+      print("ERROR HANDLER");
+      setState(() {
+        logStatus = LogStatus.FAIL_CONNECT;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        children: <Widget>[
-          SvgPicture.asset("assets/images/undraw.svg"),
-          Container(
-            child: Text(
-              'Connectez vous',
-              style: TextStyle(
-                  fontFamily: Login.fontText,
-                  fontSize: 25,
-                  color: Colors.indigoAccent,
-                  fontWeight: FontWeight.bold),
+      body: Container(
+        height: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            SvgPicture.asset(
+              "assets/images/undraw.svg",
+              height: MediaQuery.of(context).size.height / 4,
             ),
-          ),
-          Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Container(
-                    width: MediaQuery.of(context).size.width / 1.3,
-                    child: UserInput(
-                      textInput: _userNameEditingController,
-                      prefixiconItem: Icons.email,
-                      labelInput: 'Username',
-                    )),
-                Container(
-                    margin: EdgeInsets.only(top: 20),
-                    width: MediaQuery.of(context).size.width / 1.3,
-                    child: UserInput(
-                      showPassword: isVisiblePassword,
-                      setVisiblePassword: this.showPassord,
-                      textInput: _passwordEditingController,
-                      prefixiconItem: Icons.vpn_key,
-                      suffixIconIten: Icons.remove_red_eye,
-                      labelInput: 'Password',
-                    )),
-                InkWell(
-                    onTap: () {},
-                    child: Text(
-                      'Forgot password',
-                      style: TextStyle(
-                        fontFamily: Login.fontText,
-                        color: Colors.indigoAccent,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / 2,
-            child: RaisedButton(
+            Container(
               child: Text(
-                'Login',
+                'Connectez vous',
                 style: TextStyle(
-                    color: Colors.white,
                     fontFamily: Login.fontText,
+                    fontSize: 25,
+                    color: Utils.colorFromHex("#00BFA6"),
                     fontWeight: FontWeight.bold),
               ),
-              color: Colors.indigoAccent,
-              onPressed: () {
-                print(_userNameEditingController.text);
-                print(_passwordEditingController.text);
-                _logUser(_userNameEditingController.text,
-                    _passwordEditingController.text);
-              },
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => SignUp()));
-              },
-              child: Text(
-                'Creer un nouveau compte',
-                textDirection: TextDirection.ltr,
-                style: TextStyle(
-                  color: Colors.indigoAccent,
-                  fontSize: 15.0,
-                  decoration: TextDecoration.none,
-                  fontWeight: FontWeight.normal,
-                ),
+            Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                      width: MediaQuery.of(context).size.width / 1.3,
+                      child: UserInput(
+                        textInput: _userNameEditingController,
+                        prefixiconItem: Icons.email,
+                        labelInput: 'Username',
+                      )),
+                  Container(
+                      margin: EdgeInsets.only(top: 20),
+                      width: MediaQuery.of(context).size.width / 1.3,
+                      child: UserInput(
+                        showPassword: isVisiblePassword,
+                        setVisiblePassword: this.showPassord,
+                        textInput: _passwordEditingController,
+                        prefixiconItem: Icons.vpn_key,
+                        suffixIconIten: Icons.remove_red_eye,
+                        labelInput: 'Password',
+                      )),
+                  InkWell(
+                      onTap: () {},
+                      child: Text(
+                        'Forgot password',
+                        style: TextStyle(
+                          fontFamily: Login.fontText,
+                          color: Utils.colorFromHex("#00BFA6"),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                ],
               ),
             ),
-          ),
-        ],
+            (logStatus == LogStatus.FAIL_CONNECT)
+                ? Container(
+                    child: Text(
+                      'Vos indentifiants sont semblent incorrectes',
+                      style: TextStyle(
+                          color: Colors.red, fontStyle: FontStyle.italic),
+                    ),
+                  )
+                : Container(),
+            Container(
+              width: MediaQuery.of(context).size.width / 2,
+              child: RaisedButton(
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: Login.fontText,
+                      fontWeight: FontWeight.bold),
+                ),
+                color: Utils.colorFromHex("#00BFA6"),
+                onPressed: () {
+                  _logUser(_userNameEditingController.text,
+                      _passwordEditingController.text);
+                },
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 2,
+              child: OutlineButton(
+                  borderSide: BorderSide(color: Utils.colorFromHex("#00BFA6")),
+                  child: Text(
+                    "S'inscrire",
+                    style: TextStyle(
+                        color: Utils.colorFromHex("#00BFA6"),
+                        fontFamily: Login.fontText,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  color: Colors.white,
+                  onPressed: () => navigateLoginToRegister(context)),
+            ),
+          ],
+        ),
       ),
     );
   }
