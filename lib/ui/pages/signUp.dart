@@ -43,7 +43,7 @@ class SignUp extends StatelessWidget {
                     width: MediaQuery.of(context).size.width / 1.3,
                     child: UserInput(
                       textInput: _emailEditingController,
-                      iconItem: Icons.email,
+                      prefixiconItem: Icons.email,
                       labelInput: 'Email',
                     )),
                 Container(
@@ -51,7 +51,7 @@ class SignUp extends StatelessWidget {
                     width: MediaQuery.of(context).size.width / 1.3,
                     child: UserInput(
                       textInput: _userNameEditingController,
-                      iconItem: Icons.email,
+                      prefixiconItem: Icons.email,
                       labelInput: 'Username',
                     )),
                 Container(
@@ -59,7 +59,7 @@ class SignUp extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 1.3,
                   child: UserInput(
                     textInput: _passwordEditingController,
-                    iconItem: Icons.vpn_key,
+                    prefixiconItem: Icons.vpn_key,
                     labelInput: 'Password',
                   ),
                 ),
