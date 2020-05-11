@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rooforall/ui/pages/login.dart';
 
+import 'ui/pages/bottom_navigation.dart';
 import 'ui/pages/home.dart';
 import 'ui/resources/utils/utils.dart';
 
@@ -10,7 +11,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        routes: {Home.routeName: (BuildContext context) => Home()},
+        routes: {
+          Home.routeName: (BuildContext context) => Home(),
+          BottomNavigation.routeName: (BuildContext context) => BottomNavigation()
+        },
         title: 'Flutter Demo',
         theme: ThemeData(
           fontFamily: 'SFPro',

@@ -7,7 +7,6 @@ import 'package:rooforall/ui/pages/profile.dart';
 import 'package:rooforall/ui/pages/setting.dart';
 
 class BottomNavigation extends StatefulWidget {
-
   static const String routeName = "/bottomNavigation";
   BottomNavigation({Key key, this.title}) : super(key: key);
 
@@ -20,6 +19,8 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
+    final String username = ModalRoute.of(context).settings.arguments;
+
     return CustomScaffold(
       scaffold: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
@@ -27,7 +28,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
         ),
       ),
       children: <Widget>[
-        Home(),
+        Home(
+          currentUsername: username,
+        ),
         ProfilePage('Profile'),
         SettingPage('Setting'),
       ],

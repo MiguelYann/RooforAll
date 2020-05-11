@@ -9,6 +9,7 @@ import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'bottom_navigation.dart';
 import 'home.dart';
 
 class Login extends StatefulWidget {
@@ -96,7 +97,7 @@ class _LoginState extends State<Login> {
           });
       }
 
-      Navigator.pushNamed(context, Home.routeName, arguments:response.data["username"]);
+      Navigator.pushNamed(context, BottomNavigation.routeName, arguments:response.data["username"]);
     } catch (e) {
       setState(() {
         logStatus = LogStatus.FAIL_CONNECT;

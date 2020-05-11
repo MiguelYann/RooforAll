@@ -3,20 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:rooforall/ui/pages/setting.dart';
 
 class Home extends StatelessWidget {
-  //final String title;
+  final String currentUsername;
   static final String routeName = "/home";
 
- // const Home(this.title) : assert(title != null);
+  const Home({this.currentUsername});
 
   @override
   Widget build(BuildContext context) {
-
-        final String username  = ModalRoute.of(context).settings.arguments;
-
-    final text = Text(username);
+    final text = Text("Home");
     return Scaffold(
-      body: Container(
-        child: Center(child: text),
+      body: Column(
+        children: <Widget>[
+          Container(
+            child: Text("Bonjour $currentUsername"),
+          ),
+        ],
       ),
       appBar: AppBar(title: text),
     );
