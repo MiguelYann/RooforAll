@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rooforall/data/repository/user_repository.dart';
 import 'package:rooforall/ui/pages/login.dart';
+import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
 
 class SignUp extends StatelessWidget {
@@ -31,7 +32,7 @@ class SignUp extends StatelessWidget {
               style: TextStyle(
                   fontFamily: fontText,
                   fontSize: 25,
-                  color: Colors.indigoAccent,
+                  color: Utils.colorFromHex("#00BFA6"),
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -76,7 +77,7 @@ class SignUp extends StatelessWidget {
                     fontFamily: fontText,
                     fontWeight: FontWeight.bold),
               ),
-              color: Colors.indigoAccent,
+              color: Utils.colorFromHex("#00BFA6"),
               onPressed: () {
                 print(_emailEditingController.text);
                 print(_userNameEditingController.text);
@@ -92,16 +93,14 @@ class SignUp extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20),
             child: InkWell(
               onTap: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => Login()));
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) => Login()));
               },
               child: Text(
                 'Login',
                 textDirection: TextDirection.ltr,
                 style: TextStyle(
-                  color: Colors.indigoAccent,
+                  color: Utils.colorFromHex("#00BFA6"),
                   fontSize: 15.0,
                   decoration: TextDecoration.none,
                   fontWeight: FontWeight.normal,

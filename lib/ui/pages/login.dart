@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
       isVisiblePassword = !isVisiblePassword;
     });
   }
-
+  
   void navigateLoginToRegister(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp()));
   }
