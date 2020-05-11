@@ -27,7 +27,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         ),
       ),
       children: <Widget>[
-        Home('Home'),
+        Home(),
         ProfilePage('Profile'),
         SettingPage('Setting'),
       ],

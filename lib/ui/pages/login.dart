@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rooforall/data/repository/user_repository.dart';
@@ -7,9 +9,12 @@ import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'home.dart';
+
 class Login extends StatefulWidget {
 //  Color backGroundColor = Utils.colorFromHex('#9f9fa3');
   static const fontText = 'SFPro';
+  static final String routeName = "/login";
 
   @override
   _LoginState createState() => _LoginState();
@@ -30,7 +35,7 @@ class _LoginState extends State<Login> {
       isVisiblePassword = !isVisiblePassword;
     });
   }
-  
+
   void navigateLoginToRegister(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp()));
   }
@@ -59,7 +64,6 @@ class _LoginState extends State<Login> {
   Future<void> _logUser(String mail, String password) async {
     try {
       Response response = await UserRepository().logUser(mail, password);
-      print(response.statusCode);
 
       switch (response.statusCode) {
         case 200:
@@ -91,8 +95,9 @@ class _LoginState extends State<Login> {
             logStatus = LogStatus.INITIAL;
           });
       }
+
+      Navigator.pushNamed(context, Home.routeName, arguments:response.data["username"]);
     } catch (e) {
-      print("ERROR HANDLER");
       setState(() {
         logStatus = LogStatus.FAIL_CONNECT;
       });
