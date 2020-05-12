@@ -37,7 +37,7 @@ class Home extends StatelessWidget {
 
           Container(
             decoration: BoxDecoration(
-              
+
             ),
           ),
           Column(

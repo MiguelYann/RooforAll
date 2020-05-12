@@ -20,4 +20,8 @@ class UserProvider {
     return response;
   }
 
+  Future<dynamic> getUserInformation(String aBearerToken) async {
+    return await _dio.get('$DEFAULT_URL/api/users/getInfo',
+        options: Options(headers: {"authorization": aBearerToken}));
+  }
 }
