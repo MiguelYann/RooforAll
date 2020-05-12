@@ -16,14 +16,9 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  var primaryColor =   Utils.colorFromHex("#00BFA6");
+  var primaryColor = Utils.colorFromHex("#00BFA6");
 
   int _currentIndex = 0;
-  final List<Widget> _widgetsPage = [
-    Home(),
-    ProfilePage("Profile"),
-    SettingPage("Setting"),
-  ];
 
   var _items = [
     BottomNavigationBarItem(
@@ -46,7 +41,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   }
 
   BottomNavigationBar create(int index) => BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
+      type: BottomNavigationBarType.shifting,
       currentIndex: _currentIndex,
       items: _items,
       onTap: _incrementTab);
@@ -54,7 +49,11 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     final String username = ModalRoute.of(context).settings.arguments;
-
+    final List<Widget> _widgetsPage = [
+      Home(currentUsername: username),
+      ProfilePage("Profile"),
+      SettingPage("Setting"),
+    ];
     return Scaffold(
       bottomNavigationBar: create(_currentIndex),
       body: IndexedStack(

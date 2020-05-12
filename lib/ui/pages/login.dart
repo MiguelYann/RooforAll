@@ -66,6 +66,8 @@ class _LoginState extends State<Login> {
   Future<void> _logUser(String mail, String password) async {
     try {
       Response response = await UserRepository().logUser(mail, password);
+      Headers headers = await response.headers;
+      String token = await headers.value("authorization").substring(7);
 
       switch (response.statusCode) {
         case 200:

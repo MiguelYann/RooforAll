@@ -19,4 +19,5 @@ class UserProvider {
             {'email': aEmail, 'username': anUsername, 'password': aPassword}));
     return response;
   }
+
 }
