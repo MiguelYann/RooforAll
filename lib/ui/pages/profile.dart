@@ -10,6 +10,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = Text('Profile');
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         child: Center(child: text),
       ),
