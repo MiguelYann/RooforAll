@@ -4,12 +4,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rooforall/data/repository/user_repository.dart';
 import 'package:rooforall/ui/pages/signUp.dart';
-import 'package:rooforall/ui/resources/utils/log_status.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
+import 'package:rooforall/ui/resources/widgets/bottom_navigation.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'bottom_navigation.dart';
 import 'home.dart';
 
 class Login extends StatefulWidget {
@@ -20,6 +19,8 @@ class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
+
+enum LogStatus { INITIAL, SUCESS_CONNECT, FAIL_CONNECT }
 
 class _LoginState extends State<Login> {
   final TextEditingController _userNameEditingController =
@@ -97,7 +98,8 @@ class _LoginState extends State<Login> {
           });
       }
 
-      Navigator.pushNamed(context, BottomNavigation.routeName, arguments:response.data["username"]);
+      Navigator.pushNamed(context, BottomNavigation.routeName,
+          arguments: response.data["username"]);
     } catch (e) {
       setState(() {
         logStatus = LogStatus.FAIL_CONNECT;
