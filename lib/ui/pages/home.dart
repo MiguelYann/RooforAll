@@ -34,11 +34,23 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
-
-          Container(
-            decoration: BoxDecoration(
-
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          'https://d2eip9sf3oo6c2.cloudfront.net/instructors/avatars/000/000/032/square_480/oapgW_Fp_400x400.jpg'),
+                      fit: BoxFit.cover),
+                  border: Border.all(style: BorderStyle.none),
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                height: 60,
+                width: 60,
+                margin: EdgeInsets.only(top: 100, right: 50),
+              ),
+            ],
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -49,8 +61,8 @@ class Home extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
                   ),
                 ),
               ),
