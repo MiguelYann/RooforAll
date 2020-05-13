@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rooforall/data/models/slider_item.dart';
+import 'package:rooforall/ui/pages/login.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:rooforall/ui/resources/widgets/slider_screen_splash.dart';
 
@@ -30,7 +31,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
           border: Border.all(style: BorderStyle.none),
-          color: isCurrentPage ? Utils.colorFromHex("#00BFA6") : Colors.grey),
+          color: isCurrentPage ? Utils.colorFromHex("#29264E") : Colors.grey),
     );
   }
 
@@ -86,7 +87,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
                       'PASSER',
                       style: TextStyle(
                           fontFamily: fontText,
-                          color: Utils.colorFromHex("#00BFA6"),
+                          color: Utils.colorFromHex("#29264E"),
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -108,26 +109,34 @@ class _ScreenSplashState extends State<ScreenSplash> {
                       'SUIVANT',
                       style: TextStyle(
                           fontFamily: fontText,
-                          color: Utils.colorFromHex("#00BFA6"),
+                          color: Utils.colorFromHex("#29264E"),
                           fontWeight: FontWeight.bold),
                     ),
                   )
                 ],
               ),
             )
-          : Container(
-              alignment: Alignment.center,
-              height: 90,
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                'COMMENCER',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontFamily: fontText,
-                    fontWeight: FontWeight.bold),
+          : InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Login()));
+              },
+              child: Container(
+                alignment: Alignment.center,
+                height: 90,
+                width: MediaQuery.of(context).size.width,
+                child: Text(
+                  'COMMENCER',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontFamily: fontText,
+                      fontWeight: FontWeight.bold),
+                ),
+                color: Utils.colorFromHex("#00BFA6"),
               ),
-              color: Utils.colorFromHex("#00BFA6"),
             ),
     );
   }
