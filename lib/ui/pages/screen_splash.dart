@@ -16,7 +16,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
 
   List<SliderItem> _slides = List<SliderItem>();
   int _currentIndex = 0;
-
+  PageController _pageController = PageController(initialPage: 0);
   @override
   void initState() {
     super.initState();
@@ -52,6 +52,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView.builder(
+        controller: _pageController,
         onPageChanged: (value) {
           setState(() {
             _currentIndex = value;
@@ -66,7 +67,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
           );
         },
       ),
-      bottomSheet: _currentIndex != _slides.length
+      bottomSheet: _currentIndex != _slides.length - 1
           ? Container(
               height: Platform.isIOS ? 70 : 60,
               padding: EdgeInsets.symmetric(horizontal: 30),
@@ -74,6 +75,13 @@ class _ScreenSplashState extends State<ScreenSplash> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   InkWell(
+                    onTap: () {
+                      _pageController.animateToPage(
+                        (_slides.length - 1),
+                        duration: Duration(milliseconds: 400),
+                        curve: Curves.linear,
+                      );
+                    },
                     child: Text(
                       'PASSER',
                       style: TextStyle(
@@ -89,7 +97,13 @@ class _ScreenSplashState extends State<ScreenSplash> {
                     ],
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      _pageController.animateToPage(
+                        (_currentIndex + 1),
+                        duration: Duration(milliseconds: 400),
+                        curve: Curves.linear,
+                      );
+                    },
                     child: Text(
                       'SUIVANT',
                       style: TextStyle(
@@ -102,7 +116,18 @@ class _ScreenSplashState extends State<ScreenSplash> {
               ),
             )
           : Container(
-              child: Text('dd'),
+              alignment: Alignment.center,
+              height: 90,
+              width: MediaQuery.of(context).size.width,
+              child: Text(
+                'COMMENCER',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontFamily: fontText,
+                    fontWeight: FontWeight.bold),
+              ),
+              color: Utils.colorFromHex("#00BFA6"),
             ),
     );
   }
