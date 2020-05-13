@@ -68,7 +68,7 @@ class _LoginState extends State<Login> {
       Response response = await UserRepository().logUser(mail, password);
       Headers headers = await response.headers;
       String token = await headers.value("authorization").substring(7);
-
+print(response.statusCode);
       switch (response.statusCode) {
         case 200:
           setState(() {
@@ -103,6 +103,7 @@ class _LoginState extends State<Login> {
       Navigator.pushNamed(context, BottomNavigation.routeName,
           arguments: response.data["username"]);
     } catch (e) {
+      print('dddd');
       setState(() {
         logStatus = LogStatus.FAIL_CONNECT;
       });
