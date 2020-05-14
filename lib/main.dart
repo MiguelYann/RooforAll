@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rooforall/ui/pages/login.dart';
+import 'package:rooforall/ui/pages/screen_splash.dart';
 import 'package:rooforall/ui/resources/utils/theme.dart';
 import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,6 +33,6 @@ class MyApp extends StatelessWidget {
         },
         title: 'Flutter Demo',
         theme: themeNotif.getTheme(),
-        home: Login());
+        home: ScreenSplash());
   }
 }

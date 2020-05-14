@@ -7,9 +7,7 @@ class Home extends StatelessWidget {
   static final String routeName = "/home";
 
   const Home({this.currentUsername});
-/**
- * TODO: REFACTO la variable partagee pour la couleur 
- */
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +40,7 @@ class Home extends StatelessWidget {
                 ),
                 height: 60,
                 width: 60,
-                margin: EdgeInsets.only(top: 100, right: 50),
+                                margin: EdgeInsets.only(top: 100, right: 50),
               ),
             ],
           ),

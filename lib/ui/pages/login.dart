@@ -9,7 +9,6 @@ import 'package:rooforall/ui/resources/widgets/bottom_navigation.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 class Login extends StatefulWidget {
   static final String routeName = "/login";
 
@@ -65,7 +64,7 @@ class _LoginState extends State<Login> {
       Response response = await UserRepository().logUser(mail, password);
       Headers headers = await response.headers;
       String token = await headers.value("authorization").substring(7);
-print(response.statusCode);
+      print(response.statusCode);
       switch (response.statusCode) {
         case 200:
           setState(() {
@@ -110,7 +109,6 @@ print(response.statusCode);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Container(
         height: double.infinity,
         child: Column(

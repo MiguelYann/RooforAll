@@ -15,7 +15,7 @@ final lightTheme = ThemeData(
   primarySwatch: Colors.grey,
   primaryColor: Colors.white,
   brightness: Brightness.light,
-  backgroundColor: Utils.colorFromHex("#00BFA6"),
+  backgroundColor: Utils.customGreenColor,
   accentColor: Colors.black,
   accentIconTheme: IconThemeData(color: Colors.white),
   dividerColor: Colors.white54,
