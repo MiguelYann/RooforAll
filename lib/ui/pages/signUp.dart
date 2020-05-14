@@ -31,7 +31,7 @@ class SignUp extends StatelessWidget {
               style: TextStyle(
                   fontFamily: Utils.customFont,
                   fontSize: 25,
-                  color: Utils.colorFromHex("#00BFA6"),
+                  color: Utils.customGreenColor,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -76,7 +76,7 @@ class SignUp extends StatelessWidget {
                     fontFamily: Utils.customFont,
                     fontWeight: FontWeight.bold),
               ),
-              color: Utils.colorFromHex("#00BFA6"),
+              color: Utils.customGreenColor,
               onPressed: () {
                 print(_emailEditingController.text);
                 print(_userNameEditingController.text);
@@ -99,7 +99,7 @@ class SignUp extends StatelessWidget {
                 'Login',
                 textDirection: TextDirection.ltr,
                 style: TextStyle(
-                  color: Utils.colorFromHex("#00BFA6"),
+                  color: Utils.customGreenColor,
                   fontSize: 15.0,
                   decoration: TextDecoration.none,
                   fontWeight: FontWeight.normal,

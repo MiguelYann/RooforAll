@@ -27,7 +27,7 @@ class UserInput extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               style: BorderStyle.solid,
-              color: Utils.colorFromHex("#00BFA6"),
+              color: Utils.customGreenColor,
             ),
             borderRadius: BorderRadius.all(
               Radius.circular(10),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 
 class Home extends StatelessWidget {
-
   final String currentUsername;
   static final String routeName = "/home";
 
@@ -13,11 +12,8 @@ class Home extends StatelessWidget {
  */
   @override
   Widget build(BuildContext context) {
-    Color primaryColor = Utils.colorFromHex("#00BFA6");
-    final text = Text("Home");
-
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Utils.customGreenColor,
       body: Stack(
         children: <Widget>[
           Container(

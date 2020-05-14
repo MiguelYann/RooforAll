@@ -126,7 +126,7 @@ print(response.statusCode);
                 style: TextStyle(
                     fontFamily: Utils.customFont,
                     fontSize: 25,
-                    color: Utils.colorFromHex("#00BFA6"),
+                    color: Utils.customGreenColor,
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -158,7 +158,7 @@ print(response.statusCode);
                         'Forgot password',
                         style: TextStyle(
                           fontFamily: Utils.customFont,
-                          color: Utils.colorFromHex("#00BFA6"),
+                          color: Utils.customGreenColor,
                           fontWeight: FontWeight.bold,
                         ),
                       )),
@@ -184,7 +184,7 @@ print(response.statusCode);
                       fontFamily: Utils.customFont,
                       fontWeight: FontWeight.bold),
                 ),
-                color: Utils.colorFromHex("#00BFA6"),
+                color: Utils.customGreenColor,
                 onPressed: () {
                   _logUser(_userNameEditingController.text,
                       _passwordEditingController.text);
@@ -194,11 +194,11 @@ print(response.statusCode);
             Container(
               width: MediaQuery.of(context).size.width / 2,
               child: OutlineButton(
-                  borderSide: BorderSide(color: Utils.colorFromHex("#00BFA6")),
+                  borderSide: BorderSide(color: Utils.customGreenColor),
                   child: Text(
                     "S'inscrire",
                     style: TextStyle(
-                        color: Utils.colorFromHex("#00BFA6"),
+                        color: Utils.customGreenColor,
                         fontFamily: Utils.customFont,
                         fontWeight: FontWeight.bold),
                   ),

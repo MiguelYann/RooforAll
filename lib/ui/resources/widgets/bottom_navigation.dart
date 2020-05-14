@@ -16,21 +16,19 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  var primaryColor = Utils.colorFromHex("#00BFA6");
-
   int _currentIndex = 0;
 
   var _items = [
     BottomNavigationBarItem(
-      icon: Icon(Icons.home, color: Utils.colorFromHex("#00BFA6")),
+      icon: Icon(Icons.home, color: Utils.customGreenColor),
       title: Text('Accueil'),
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.account_circle, color: Utils.colorFromHex("#00BFA6")),
+      icon: Icon(Icons.account_circle, color: Utils.customGreenColor),
       title: Text('profile'),
     ),
     BottomNavigationBarItem(
-        icon: Icon(Icons.settings, color: Utils.colorFromHex("#00BFA6")),
+        icon: Icon(Icons.settings, color: Utils.customGreenColor),
         title: Text('settings'))
   ];
 
