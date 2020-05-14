@@ -24,21 +24,31 @@ class UserInput extends StatelessWidget {
       obscureText: showPassword ?? false,
       controller: textInput,
       decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
+        helperText: labelInput,
+        helperStyle: TextStyle(color: Utils.customPurpleColor, fontFamily: Utils.customFont),
+        suffixIcon: InkWell(
+          onTap: setVisiblePassword,
+          child: Icon(suffixIconIten, color: Utils.customPurpleColor,),
+        ),
+        prefixIcon: Icon(prefixiconItem, color: Utils.customPurpleColor,),
+        focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
               style: BorderStyle.solid,
-              color: Utils.customGreenColor,
+              color: Utils.customPurpleColor,
             ),
             borderRadius: BorderRadius.all(
               Radius.circular(10),
             ),
             gapPadding: 20),
-        labelText: labelInput,
-        suffixIcon: InkWell(
-          onTap: setVisiblePassword,
-          child: Icon(suffixIconIten),
-        ),
-        prefixIcon: Icon(prefixiconItem),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              style: BorderStyle.solid,
+              color: Utils.customPurpleColor,
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+            gapPadding: 20),
       ),
     );
   }

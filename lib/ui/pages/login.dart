@@ -137,7 +137,7 @@ class _LoginState extends State<Login> {
                       child: UserInput(
                         textInput: _userNameEditingController,
                         prefixiconItem: Icons.email,
-                        labelInput: 'Username',
+                        labelInput: "Entrer votre nom d'utilisateur",
                       )),
                   Container(
                       margin: EdgeInsets.only(top: 20),
@@ -148,12 +148,12 @@ class _LoginState extends State<Login> {
                         textInput: _passwordEditingController,
                         prefixiconItem: Icons.vpn_key,
                         suffixIconIten: Icons.remove_red_eye,
-                        labelInput: 'Password',
+                        labelInput: 'Entrer votre mot de passe',
                       )),
                   InkWell(
                       onTap: () {},
                       child: Text(
-                        'Forgot password',
+                        'Mot de passe oublié',
                         style: TextStyle(
                           fontFamily: Utils.customFont,
                           color: Utils.customGreenColor,
