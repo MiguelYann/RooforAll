@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 
 class UserProvider {
   Dio _dio = Dio();
-  static const DEFAULT_URL = 'http://172.20.10.3:8080';
+  static const DEFAULT_URL = 'http://192.168.1.52:8080';
 
   Future<dynamic> logUser(String anUsername, String aPassword) async {
     var response = await _dio.post('$DEFAULT_URL/login',

@@ -52,7 +52,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     final List<Widget> _widgetsPage = [
       Home(currentUsername: username),
       ProfilePage("Profile"),
-      SettingPage("Setting"),
+      SettingsPage(),
     ];
     return Scaffold(
       bottomNavigationBar: create(_currentIndex),
