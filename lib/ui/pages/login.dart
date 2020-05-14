@@ -9,11 +9,8 @@ import 'package:rooforall/ui/resources/widgets/bottom_navigation.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'home.dart';
 
 class Login extends StatefulWidget {
-//  Color backGroundColor = Utils.colorFromHex('#9f9fa3');
-  static const fontText = 'SFPro';
   static final String routeName = "/login";
 
   @override
@@ -127,7 +124,7 @@ print(response.statusCode);
               child: Text(
                 'Connectez vous',
                 style: TextStyle(
-                    fontFamily: Login.fontText,
+                    fontFamily: Utils.customFont,
                     fontSize: 25,
                     color: Utils.colorFromHex("#00BFA6"),
                     fontWeight: FontWeight.bold),
@@ -160,7 +157,7 @@ print(response.statusCode);
                       child: Text(
                         'Forgot password',
                         style: TextStyle(
-                          fontFamily: Login.fontText,
+                          fontFamily: Utils.customFont,
                           color: Utils.colorFromHex("#00BFA6"),
                           fontWeight: FontWeight.bold,
                         ),
@@ -184,7 +181,7 @@ print(response.statusCode);
                   'Login',
                   style: TextStyle(
                       color: Colors.white,
-                      fontFamily: Login.fontText,
+                      fontFamily: Utils.customFont,
                       fontWeight: FontWeight.bold),
                 ),
                 color: Utils.colorFromHex("#00BFA6"),
@@ -202,7 +199,7 @@ print(response.statusCode);
                     "S'inscrire",
                     style: TextStyle(
                         color: Utils.colorFromHex("#00BFA6"),
-                        fontFamily: Login.fontText,
+                        fontFamily: Utils.customFont,
                         fontWeight: FontWeight.bold),
                   ),
                   color: Colors.white,

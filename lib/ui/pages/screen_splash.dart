@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:rooforall/data/models/slider_item.dart';
 import 'package:rooforall/ui/pages/login.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
@@ -13,8 +12,6 @@ class ScreenSplash extends StatefulWidget {
 }
 
 class _ScreenSplashState extends State<ScreenSplash> {
-  static const fontText = 'SFPro';
-
   List<SliderItem> _slides = List<SliderItem>();
   int _currentIndex = 0;
   PageController _pageController = PageController(initialPage: 0);
@@ -31,7 +28,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
           border: Border.all(style: BorderStyle.none),
-          color: isCurrentPage ? Utils.colorFromHex("#29264E") : Colors.grey),
+          color: isCurrentPage ? Utils.customPurpleColor : Colors.grey),
     );
   }
 
@@ -86,8 +83,8 @@ class _ScreenSplashState extends State<ScreenSplash> {
                     child: Text(
                       'PASSER',
                       style: TextStyle(
-                          fontFamily: fontText,
-                          color: Utils.colorFromHex("#29264E"),
+                          fontFamily: Utils.customFont,
+                          color: Utils.customPurpleColor,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -108,8 +105,8 @@ class _ScreenSplashState extends State<ScreenSplash> {
                     child: Text(
                       'SUIVANT',
                       style: TextStyle(
-                          fontFamily: fontText,
-                          color: Utils.colorFromHex("#29264E"),
+                          fontFamily: Utils.customFont,
+                          color: Utils.customPurpleColor,
                           fontWeight: FontWeight.bold),
                     ),
                   )
@@ -132,10 +129,10 @@ class _ScreenSplashState extends State<ScreenSplash> {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
-                      fontFamily: fontText,
+                      fontFamily: Utils.customFont,
                       fontWeight: FontWeight.bold),
                 ),
-                color: Utils.colorFromHex("#00BFA6"),
+                color: Utils.customGreenColor,
               ),
             ),
     );

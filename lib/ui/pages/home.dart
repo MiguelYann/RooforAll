@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rooforall/ui/pages/setting.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 
 class Home extends StatelessWidget {
-  static const fontText = 'SFPro';
 
   final String currentUsername;
   static final String routeName = "/home";
@@ -27,7 +25,7 @@ class Home extends StatelessWidget {
             child: Text(
               'Bonjour $currentUsername',
               style: TextStyle(
-                fontFamily: fontText,
+                fontFamily: Utils.customFont,
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,

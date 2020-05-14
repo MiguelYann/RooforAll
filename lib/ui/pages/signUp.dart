@@ -5,7 +5,6 @@ import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
 
 class SignUp extends StatelessWidget {
-  static const fontText = 'SFPro';
   final TextEditingController _emailEditingController = TextEditingController();
   final TextEditingController _userNameEditingController =
       TextEditingController();
@@ -30,7 +29,7 @@ class SignUp extends StatelessWidget {
             child: Text(
               'Enregistrez Vous',
               style: TextStyle(
-                  fontFamily: fontText,
+                  fontFamily: Utils.customFont,
                   fontSize: 25,
                   color: Utils.colorFromHex("#00BFA6"),
                   fontWeight: FontWeight.bold),
@@ -74,7 +73,7 @@ class SignUp extends StatelessWidget {
                 'Sign Up',
                 style: TextStyle(
                     color: Colors.white,
-                    fontFamily: fontText,
+                    fontFamily: Utils.customFont,
                     fontWeight: FontWeight.bold),
               ),
               color: Utils.colorFromHex("#00BFA6"),

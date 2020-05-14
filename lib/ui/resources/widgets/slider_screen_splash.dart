@@ -10,8 +10,6 @@ class SliderScreenSplash extends StatelessWidget {
   SliderScreenSplash({this.imagePath, this.description, this.title});
   @override
   Widget build(BuildContext context) {
-    const fontText = 'SFPro';
-    Color color = Utils.colorFromHex("#29264E");
 
     return Container(
       child: Column(
@@ -27,15 +25,15 @@ class SliderScreenSplash extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              color: color,
-              fontFamily: fontText,
-              fontWeight: FontWeight.bold
-            ),
+                color: Utils.customPurpleColor,
+                fontFamily: Utils.customFont,
+                fontWeight: FontWeight.bold),
           ),
           SizedBox(
             height: 13,
           ),
-          Text(description, style: TextStyle(fontFamily: fontText, color: color))
+          Text(description,
+              style: TextStyle(fontFamily: Utils.customFont, color: Utils.customPurpleColor))
         ],
       ),
     );
