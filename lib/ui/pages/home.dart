@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 
 class Home extends StatelessWidget {
@@ -7,11 +9,14 @@ class Home extends StatelessWidget {
   static final String routeName = "/home";
 
   const Home({this.currentUsername});
-
   @override
   Widget build(BuildContext context) {
+      var _darkTheme = true;
+
+     final themeNotifier = Provider.of<ThemeNotif>(context);
+    _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
     return Scaffold(
-      backgroundColor: Utils.customGreenColor,
+      backgroundColor: !_darkTheme?Utils.customGreenColor : null,
       body: Stack(
         children: <Widget>[
           Container(
@@ -22,7 +27,7 @@ class Home extends StatelessWidget {
                 fontFamily: Utils.customFont,
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: !_darkTheme ? Colors.white : null,
               ),
             ),
           ),
@@ -51,7 +56,7 @@ class Home extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 1.75,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: !_darkTheme ?Colors.white : null,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40),

@@ -7,6 +7,7 @@ import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'ui/pages/home.dart';
+import 'ui/resources/utils/utils.dart';
 import 'ui/resources/widgets/bottom_navigation.dart';
 
 void main() {
@@ -15,7 +16,7 @@ void main() {
     var darkModeOn = prefs.getBool('darkMode') ?? true;
     runApp(
       ChangeNotifierProvider<ThemeNotif>(
-        create: (_) => ThemeNotif(darkModeOn ? darkTheme : lightTheme),
+        create: (_) => ThemeNotif(darkModeOn ? Utils.darktheme : Utils.lightTheme),
         child: MyApp(),
       ),
     );

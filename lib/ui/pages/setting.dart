@@ -1,8 +1,8 @@
 import 'package:day_night_switch/day_night_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rooforall/ui/resources/utils/theme.dart';
 import 'package:rooforall/ui/resources/utils/theme_notif.dart';
+import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/widgets.dart';
 
@@ -16,10 +16,11 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotif>(context);
-    _darkTheme = (themeNotifier.getTheme() == darkTheme);
+    _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings'),
+        automaticallyImplyLeading: false,
       ),
       body: ListView(
         children: <Widget>[
@@ -46,7 +47,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
 
   void onThemeChanged(bool value, ThemeNotif themeNotif) async {
-    (value) ? themeNotif.setTheme(darkTheme) : themeNotif.setTheme(lightTheme);
+    (value) ? themeNotif.setTheme(Utils.darktheme) : themeNotif.setTheme(Utils.lightTheme);
     var prefs = await SharedPreferences.getInstance();
     prefs.setBool('darkMode', value);
   }

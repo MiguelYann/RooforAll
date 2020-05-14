@@ -14,7 +14,10 @@ class ProfilePage extends StatelessWidget {
       body: Container(
         child: Center(child: text),
       ),
-      appBar: AppBar(title: text),
+      appBar: AppBar(
+        title: text,
+        automaticallyImplyLeading: false,
+      ),
     );
   }
 }
