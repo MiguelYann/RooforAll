@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:rooforall/data/models/slider_item.dart';
 import 'package:rooforall/ui/pages/login.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:rooforall/ui/resources/widgets/slider_landing.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -15,10 +17,16 @@ class _LandingScreenState extends State<LandingScreen> {
   List<SliderItem> _slides = List<SliderItem>();
   int _currentIndex = 0;
   PageController _pageController = PageController(initialPage: 0);
+
+  
   @override
   void initState() {
     super.initState();
     _slides = SliderItem().getSliderItems();
+  }
+
+  void goToLogin(BuildContext buildContext) {
+    Navigator.pushNamed(buildContext, Login.routeName);
   }
 
   Widget currentIndicatorPage(bool isCurrentPage) {
@@ -42,7 +50,6 @@ class _LandingScreenState extends State<LandingScreen> {
         aList.add(currentIndicatorPage(false));
       }
     }
-    print(aList);
     return aList;
   }
 
@@ -114,12 +121,7 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
             )
           : InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => Login()));
-              },
+              onTap: () => goToLogin(context),
               child: Container(
                 alignment: Alignment.center,
                 height: 90,

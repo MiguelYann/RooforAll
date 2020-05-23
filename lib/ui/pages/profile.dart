@@ -11,8 +11,10 @@ class ProfilePage extends StatelessWidget {
     final text = Text('Profile');
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
-        child: Center(child: text),
+      body: SingleChildScrollView(
+              child: Container(
+          child: Center(child: text),
+        ),
       ),
       appBar: AppBar(
         title: text,
