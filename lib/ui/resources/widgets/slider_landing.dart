@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 
-class SliderScreenSplash extends StatelessWidget {
+class SliderLanding extends StatelessWidget {
   final String imagePath;
   final String title;
   final String description;
 
-  SliderScreenSplash({this.imagePath, this.description, this.title});
+  SliderLanding({this.imagePath, this.description, this.title});
   @override
   Widget build(BuildContext context) {
-
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -25,15 +24,21 @@ class SliderScreenSplash extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-                color: Utils.customPurpleColor,
-                fontFamily: Utils.customFont,
-                fontWeight: FontWeight.bold),
+              color: Utils.customPurpleColor,
+              fontFamily: Utils.customFont,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             height: 13,
           ),
-          Text(description,
-              style: TextStyle(fontFamily: Utils.customFont, color: Utils.customPurpleColor))
+          Text(
+            description,
+            style: TextStyle(
+              fontFamily: Utils.customFont,
+              color: Utils.customPurpleColor,
+            ),
+          )
         ],
       ),
     );

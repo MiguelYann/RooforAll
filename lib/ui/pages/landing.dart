@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:rooforall/data/models/slider_item.dart';
 import 'package:rooforall/ui/pages/login.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
-import 'package:rooforall/ui/resources/widgets/slider_screen_splash.dart';
+import 'package:rooforall/ui/resources/widgets/slider_landing.dart';
 
-class ScreenSplash extends StatefulWidget {
+class LandingScreen extends StatefulWidget {
   @override
-  _ScreenSplashState createState() => _ScreenSplashState();
+  _LandingScreenState createState() => _LandingScreenState();
 }
 
-class _ScreenSplashState extends State<ScreenSplash> {
+class _LandingScreenState extends State<LandingScreen> {
   List<SliderItem> _slides = List<SliderItem>();
   int _currentIndex = 0;
   PageController _pageController = PageController(initialPage: 0);
@@ -58,7 +58,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
         },
         itemCount: _slides.length,
         itemBuilder: (context, index) {
-          return SliderScreenSplash(
+          return SliderLanding(
             imagePath: _slides[index].pathImage,
             description: _slides[index].description,
             title: _slides[index].title,

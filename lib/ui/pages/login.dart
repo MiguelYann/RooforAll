@@ -124,7 +124,7 @@ class _LoginState extends State<Login> {
                 style: TextStyle(
                     fontFamily: Utils.customFont,
                     fontSize: 25,
-                    color: Utils.customGreenColor,
+                    color: Utils.customPurpleColor,
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -154,9 +154,11 @@ class _LoginState extends State<Login> {
                       onTap: () {},
                       child: Text(
                         'Mot de passe oublié',
+                        
                         style: TextStyle(
                           fontFamily: Utils.customFont,
                           color: Utils.customGreenColor,
+                        
                           fontWeight: FontWeight.bold,
                         ),
                       )),
@@ -173,16 +175,16 @@ class _LoginState extends State<Login> {
                   )
                 : Container(),
             Container(
-              width: MediaQuery.of(context).size.width / 2,
+              width: MediaQuery.of(context).size.width / 1.5,
               child: RaisedButton(
                 child: Text(
-                  'Login',
+                  'Connexion',
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: Utils.customFont,
                       fontWeight: FontWeight.bold),
                 ),
-                color: Utils.customGreenColor,
+                color: Utils.customPurpleColor,
                 onPressed: () {
                   _logUser(_userNameEditingController.text,
                       _passwordEditingController.text);
@@ -190,17 +192,16 @@ class _LoginState extends State<Login> {
               ),
             ),
             Container(
-              width: MediaQuery.of(context).size.width / 2,
-              child: OutlineButton(
-                  borderSide: BorderSide(color: Utils.customGreenColor),
+              width: MediaQuery.of(context).size.width / 1.5,
+              child: RaisedButton(
                   child: Text(
                     "S'inscrire",
                     style: TextStyle(
-                        color: Utils.customGreenColor,
+                        color: Colors.white,
                         fontFamily: Utils.customFont,
                         fontWeight: FontWeight.bold),
                   ),
-                  color: Colors.white,
+                  color: Utils.customGreenColor,
                   onPressed: () => navigateLoginToRegister(context)),
             ),
           ],
