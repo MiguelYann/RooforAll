@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 
 class SliderLanding extends StatelessWidget {
@@ -10,6 +12,10 @@ class SliderLanding extends StatelessWidget {
   SliderLanding({this.imagePath, this.description, this.title});
   @override
   Widget build(BuildContext context) {
+    var _darkTheme = true;
+
+    final themeNotifier = Provider.of<ThemeNotif>(context);
+    _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -24,7 +30,9 @@ class SliderLanding extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              color: Utils.customPurpleColor,
+              color: _darkTheme
+                  ? Theme.of(context).accentColor
+                  : Utils.customPurpleColor,
               fontFamily: Utils.customFont,
               fontWeight: FontWeight.bold,
             ),
@@ -36,7 +44,9 @@ class SliderLanding extends StatelessWidget {
             description,
             style: TextStyle(
               fontFamily: Utils.customFont,
-              color: Utils.customPurpleColor,
+              color: _darkTheme
+                  ? Theme.of(context).accentColor
+                  : Utils.customPurpleColor,
             ),
           )
         ],

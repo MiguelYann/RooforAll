@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rooforall/data/provider/user_provider.dart';
+import 'package:rooforall/ui/resources/utils/theme.dart';
 import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ui/pages/home.dart';
@@ -9,13 +11,23 @@ import 'ui/resources/utils/utils.dart';
 import 'ui/resources/widgets/bottom_navigation.dart';
 
 void main() {
+  print("nooooo");
   WidgetsFlutterBinding.ensureInitialized();
+  bool isViewer = false;
   SharedPreferences.getInstance().then((prefs) {
+
     var darkModeOn = prefs.getBool('darkMode') ?? true;
+    String tokenId = prefs.get("token");
     runApp(
-      ChangeNotifierProvider<ThemeNotif>(
-        create: (_) =>
-            ThemeNotif(darkModeOn ? Utils.darktheme : Utils.lightTheme),
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider<ThemeNotif>.value(
+            value: ThemeNotif(darkModeOn ? Utils.darktheme : Utils.lightTheme),
+          ),
+          ChangeNotifierProvider.value(value: View(true)),
+          ChangeNotifierProvider.value(
+              value: UserProvider(tokenId != null ? tokenId : null))
+        ],
         child: MyApp(),
       ),
     );
@@ -28,32 +40,34 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  bool _isView;
-  Future<bool> checkFirstSeen() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _isView = prefs.getBool('seen') ?? false;
+  bool seen = false;
 
-    if (_isView) {
-      print('VUE');
-      return _isView;
-    } else {
-      prefs.setBool('seen', true);
-      print('pas VUE');
 
-      print(prefs.get('seen'));
-      _isView = prefs.getBool('seen');
-
-      return _isView;
-    }
-  }
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
+    SharedPreferences.getInstance().then((pref) => {
+      if (pref.getBool("seen") == null) {
+        pref.setBool("seen", true)
+      }
+      else {
+        seen = pref.getBool("seen")
+
+      }
+
+
+    });
     super.initState();
-    print(_isView);
-    checkFirstSeen().then((value) => _isView = value);
-    print('Value future${checkFirstSeen()}');
+
+    // final seenDatas = Provider.of<View>(context, listen: false);
+    // final vuee = seenDatas.vue;
+
+    // print("Initials state $vuee");
+
+    // seenDatas.changeView();
+    // print("Initials state $vuee");
+
+    // print('Hello');
   }
 
   @override
@@ -71,17 +85,23 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    // print("Buuil");
+    //     final seenBuild = Provider.of<View>(context, listen: false);
+
+    // print("finished ${seenBuild.vue}");
+
+    final user = Provider.of<UserProvider>(context);
+    print("TOKEN ${user.token}");
     final themeNotif = Provider.of<ThemeNotif>(context);
     return MaterialApp(
-      routes: {
-        Login.routeName: (_) => Login(),
-        Home.routeName: (BuildContext context) => Home(),
-        BottomNavigation.routeName: (BuildContext context) =>
-            BottomNavigation(),
-      },
-      title: 'Flutter Demo',
-      theme: themeNotif.getTheme(),
-      home: _isView ?? false ? Login() : LandingScreen(),
-    );
+        routes: {
+          Login.routeName: (_) => Login(),
+          Home.routeName: (BuildContext context) => Home(),
+          BottomNavigation.routeName: (BuildContext context) =>
+              BottomNavigation(),
+        },
+        title: 'Flutter Defmofd',
+        theme: themeNotif.getTheme(),
+        home: user.token == null ? seen ? Login(): LandingScreen() : BottomNavigation());
   }
 }

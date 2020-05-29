@@ -46,9 +46,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    final String username = ModalRoute.of(context).settings.arguments;
     final List<Widget> _widgetsPage = [
-      Home(currentUsername: username),
+      Home(),
       ProfilePage("Profile"),
       SettingsPage(),
     ];

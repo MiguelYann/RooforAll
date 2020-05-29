@@ -8,7 +8,7 @@ class Utils {
     primarySwatch: Colors.grey,
     primaryColor: Colors.black,
     brightness: Brightness.dark,
-    backgroundColor: const Color(0xFF212121),
+    backgroundColor: Colors.black38,
     accentColor: Colors.grey,
     accentIconTheme: IconThemeData(color: Colors.black),
     dividerColor: Colors.black12,
@@ -16,6 +16,7 @@ class Utils {
 
   static final lightTheme = ThemeData(
     primarySwatch: Colors.grey,
+    fontFamily: customFont,
     primaryColor: Colors.white,
     brightness: Brightness.light,
     backgroundColor: Utils.customGreenColor,

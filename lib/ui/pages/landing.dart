@@ -2,8 +2,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rooforall/data/models/slider_item.dart';
 import 'package:rooforall/ui/pages/login.dart';
+import 'package:rooforall/ui/resources/utils/theme.dart';
+import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:rooforall/ui/resources/widgets/slider_landing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,11 +20,21 @@ class _LandingScreenState extends State<LandingScreen> {
   List<SliderItem> _slides = List<SliderItem>();
   int _currentIndex = 0;
   PageController _pageController = PageController(initialPage: 0);
+  bool isviewer = false;
 
-  
+  void onView(bool value) async {
+    // (value) ? ;
+
+    var prefs = await SharedPreferences.getInstance();
+
+    prefs.setBool('seen', value);
+  }
+
   @override
   void initState() {
+
     super.initState();
+
     _slides = SliderItem().getSliderItems();
   }
 
@@ -55,6 +68,13 @@ class _LandingScreenState extends State<LandingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _darkTheme = true;
+
+    final themeNotifier = Provider.of<ThemeNotif>(context);
+    _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
+
+//    onView(isviewer, vuee);
+
     return Scaffold(
       body: PageView.builder(
         controller: _pageController,
@@ -91,7 +111,9 @@ class _LandingScreenState extends State<LandingScreen> {
                       'PASSER',
                       style: TextStyle(
                           fontFamily: Utils.customFont,
-                          color: Utils.customPurpleColor,
+                          color: _darkTheme
+                              ? Theme.of(context).accentColor
+                              : Utils.customPurpleColor,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -113,7 +135,9 @@ class _LandingScreenState extends State<LandingScreen> {
                       'SUIVANT',
                       style: TextStyle(
                           fontFamily: Utils.customFont,
-                          color: Utils.customPurpleColor,
+                          color: _darkTheme
+                              ? Theme.of(context).accentColor
+                              : Utils.customPurpleColor,
                           fontWeight: FontWeight.bold),
                     ),
                   )

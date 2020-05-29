@@ -4,18 +4,25 @@ import 'package:rooforall/ui/pages/login.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
+  @override
+  _SignUpState createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   final TextEditingController _emailEditingController = TextEditingController();
+
   final TextEditingController _userNameEditingController =
       TextEditingController();
+
   final TextEditingController _passwordEditingController =
       TextEditingController();
 
-  void _signUp(String username, String mail, String password) async {
-    var response =
-        await UserRepository().registerUser(username, mail, password);
-    print(response);
-  }
+//  void _signUp(String username, String mail, String password) async {
+//    var response =
+//        await UserRepository().registerUser(username, mail, password);
+//    print(response);
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +87,10 @@ class SignUp extends StatelessWidget {
                 print(_emailEditingController.text);
                 print(_userNameEditingController.text);
                 print(_passwordEditingController.text);
-                _signUp(
-                    _emailEditingController.text,
-                    _userNameEditingController.text,
-                    _passwordEditingController.text);
+//                _signUp(
+//                    _emailEditingController.text,
+//                    _userNameEditingController.text,
+//                    _passwordEditingController.text);
               },
             ),
           ),
