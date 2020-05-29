@@ -27,7 +27,6 @@ class _HomeState extends State<Home> {
   // //   print(await userProvider.getUserInformation(userProvider.token));
   // //   super.didChangeDependencies();
   // }
-  void getInfo(BuildContext context) {}
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +95,7 @@ class _HomeState extends State<Home> {
                         height: MediaQuery.of(context).size.height / 1.75,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: !_darkTheme ? Colors.white : null,
+                          color: !_darkTheme ? Colors.transparent : null,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(40),
                             topRight: Radius.circular(40),

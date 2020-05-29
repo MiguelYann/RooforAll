@@ -15,7 +15,6 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   bool isViewer = false;
   SharedPreferences.getInstance().then((prefs) {
-
     var darkModeOn = prefs.getBool('darkMode') ?? true;
     String tokenId = prefs.get("token");
     runApp(
@@ -42,21 +41,14 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   bool seen = false;
 
-
-
   @override
   void initState() {
     SharedPreferences.getInstance().then((pref) => {
-      if (pref.getBool("seen") == null) {
-        pref.setBool("seen", true)
-      }
-      else {
-        seen = pref.getBool("seen")
-
-      }
-
-
-    });
+          if (pref.getBool("seen") == null)
+            {pref.setBool("seen", true)}
+          else
+            {seen = pref.getBool("seen")}
+        });
     super.initState();
 
     // final seenDatas = Provider.of<View>(context, listen: false);
@@ -102,6 +94,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         },
         title: 'Flutter Defmofd',
         theme: themeNotif.getTheme(),
-        home: user.token == null ? seen ? Login(): LandingScreen() : BottomNavigation());
+        home: user.token == null
+            ? seen ? Login() : LandingScreen()
+            : BottomNavigation());
   }
 }
