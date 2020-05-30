@@ -22,16 +22,9 @@ class _LandingScreenState extends State<LandingScreen> {
   PageController _pageController = PageController(initialPage: 0);
   bool isviewer = false;
 
-  void onView(bool value) async {
-    // (value) ? ;
-
-    var prefs = await SharedPreferences.getInstance();
-
-    prefs.setBool('seen', value);
-  }
-
   @override
   void initState() {
+    print("LANDING");
 
     super.initState();
 
@@ -69,7 +62,10 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     var _darkTheme = true;
-
+    print("Build Landing");
+    SharedPreferences.getInstance().then((pref) => {
+          pref.setBool("seen", true)
+        });
     final themeNotifier = Provider.of<ThemeNotif>(context);
     _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
 

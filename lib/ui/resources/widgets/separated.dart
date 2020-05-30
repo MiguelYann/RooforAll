@@ -19,11 +19,12 @@ class Separated extends StatelessWidget {
       itemBuilder: (ctx, index) => Card(
         color: Utils.customPurpleColor,
         child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(color: Utils.customPurpleColor),
+          decoration: BoxDecoration(
+            color: Utils.customPurpleColor,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-//            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
                 margin: EdgeInsets.all(10),
@@ -46,11 +47,11 @@ class Separated extends StatelessWidget {
                 width: 20,
               ),
               Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Column(
                   children: <Widget>[
                     Icon(
                       Icons.location_city,
+                      size: 40,
                       color: Colors.amber,
                     ),
                     SizedBox(
@@ -68,9 +69,7 @@ class Separated extends StatelessWidget {
                 ),
               ),
               Container(
-
-                margin: EdgeInsets.only(left: 70, top: 10),
-                height: 30,
+                margin: EdgeInsets.only(left: 80, top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -84,10 +83,10 @@ class Separated extends StatelessWidget {
                     Text(
                       datas[index]["town"],
                       style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: Utils.customFont,
-                        fontWeight: FontWeight.bold,
-                      ),
+                          color: Colors.white,
+                          fontFamily: Utils.customFont,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10),
                     ),
                   ],
                 ),

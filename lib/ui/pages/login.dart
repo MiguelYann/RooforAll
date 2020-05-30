@@ -148,6 +148,7 @@ showDialog(
 
   @override
   Widget build(BuildContext context) {
+    print("Build login");
       var _darkTheme = true;
 
      final themeNotifier = Provider.of<ThemeNotif>(context);
