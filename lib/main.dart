@@ -69,9 +69,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     print("Build");
 
     final user = Provider.of<UserProvider>(context);
-//    print("TOKEN ${user.token}");
-//    print("Seen $seen");
+
     final themeNotif = Provider.of<ThemeNotif>(context);
+    print(user.token);
+
     return MaterialApp(
         routes: {
           Login.routeName: (_) => Login(),

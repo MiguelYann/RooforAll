@@ -66,15 +66,15 @@ class _LoginState extends State<Login> {
         return Container();
     }
   }
-void displayDialog(context, title, text) => showDialog(
-      context: context,
-      builder: (context) =>
-        AlertDialog(
-          title: Text(title),
-          content: Text(text)
-        ),
-    );
-  Future<void> _logUser(String mail, String password, BuildContext buildContext) async {
+
+  void displayDialog(context, title, text) => showDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialog(title: Text(title), content: Text(text)),
+      );
+
+  Future<void> _logUser(
+      String mail, String password, BuildContext buildContext) async {
     try {
       setState(() {
         _isLoading = true;
@@ -88,8 +88,10 @@ void displayDialog(context, title, text) => showDialog(
       // Headers headers =  response.headers;
       // String token =  headers.value("authorization").substring(7);
 
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
 
-
+      sharedPreferences.setString("token", userProvider.token);
       // switch (response.statusCode) {
       //   case 200:
       //     setState(() {
@@ -123,35 +125,35 @@ void displayDialog(context, title, text) => showDialog(
 
       Navigator.pushNamed(context, BottomNavigation.routeName,
           arguments: userProvider.username);
-          print("RECU ${userProvider.username}");
+      print("RECU ${userProvider.username}");
     } catch (e) {
-
-   
-
       setState(() {
         _isLoading = false;
         // logStatus = LogStatus.FAIL_CONNECT;
       });
-showDialog(
-      context: context,
-      builder: (context) =>
-        AlertDialog(
-          titlePadding: EdgeInsets.all(20),
-          title: Text('Erreur de connexion', style: TextStyle(fontFamily: 'SFPro', ),),
-          content: Text('Vos identifiants semblent incorrects', style: TextStyle(color: Colors.redAccent),)
-        ),
-    );
-
-      
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+            titlePadding: EdgeInsets.all(20),
+            title: Text(
+              'Erreur de connexion',
+              style: TextStyle(
+                fontFamily: 'SFPro',
+              ),
+            ),
+            content: Text(
+              'Vos identifiants semblent incorrects',
+              style: TextStyle(color: Colors.redAccent),
+            )),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    print("Build login");
-      var _darkTheme = true;
+    var _darkTheme = true;
 
-     final themeNotifier = Provider.of<ThemeNotif>(context);
+    final themeNotifier = Provider.of<ThemeNotif>(context);
     _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
     return Scaffold(
       body: SingleChildScrollView(
@@ -170,7 +172,8 @@ showDialog(
                   style: TextStyle(
                       fontFamily: Utils.customFont,
                       fontSize: 25,
-            color: _darkTheme ? Colors.white:  Utils.customPurpleColor,
+                      color:
+                          _darkTheme ? Colors.white : Utils.customPurpleColor,
                       fontWeight: FontWeight.bold),
                 ),
               ),
@@ -224,16 +227,19 @@ showDialog(
                       ? Text(
                           'Connexion',
                           style: TextStyle(
-            color: !_darkTheme ? Colors.white:  Utils.customPurpleColor,
+                              color: !_darkTheme
+                                  ? Colors.white
+                                  : Utils.customPurpleColor,
                               fontFamily: Utils.customFont,
                               fontWeight: FontWeight.bold),
                         )
                       : CupertinoActivityIndicator(
                           animating: true,
                         ),
-            color: _darkTheme ? Colors.white:  Utils.customPurpleColor,
+                  color: _darkTheme ? Colors.white : Utils.customPurpleColor,
                   onPressed: () {
-                _logUser(_userNameEditingController.text, _passwordEditingController.text, context);
+                    _logUser(_userNameEditingController.text,
+                        _passwordEditingController.text, context);
                   },
                 ),
               ),

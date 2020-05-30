@@ -1,7 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rooforall/data/provider/user_provider.dart';
+import 'package:rooforall/ui/resources/utils/news_description.dart';
 import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:rooforall/ui/resources/widgets/separated.dart';
@@ -21,13 +23,6 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
-  // @override
-  // // void didChangeDependencies() async {
-  // //   final userProvider = Provider.of<UserProvider>(context, listen: false);
-  // //   print(await userProvider.getUserInformation(userProvider.token));
-  // //   super.didChangeDependencies();
-  // }
-
   @override
   Widget build(BuildContext context) {
     print("REBUILD REBUIDL REBUILD");
@@ -36,49 +31,148 @@ class _HomeState extends State<Home> {
     _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
     final user = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
-      backgroundColor: !_darkTheme ? Utils.customGreenColor : Colors.black,
+      backgroundColor: !_darkTheme ? Colors.white : Colors.black,
       body: FutureBuilder(
         future: Provider.of<UserProvider>(context, listen: false)
             .getUserInformation(),
         builder: (ctx, asynchrone) {
+          print(asynchrone.hasData);
           if (asynchrone.hasData) {
-            print("DATA ${asynchrone.data}");
             return SafeArea(
-              child: Stack(
+              child: ListView(
                 children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 100, left: 30),
-                    child: Text(
-                      'Hello ${user.username}',
-                      style: TextStyle(
-                        fontFamily: Utils.customFont,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: !_darkTheme ? Colors.white : null,
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                  Column(
                     children: <Widget>[
-                      !_darkTheme
-                          ? Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                      'https://d2eip9sf3oo6c2.cloudfront.net/instructors/avatars/000/000/032/square_480/oapgW_Fp_400x400.jpg',
-                                    ),
-                                    fit: BoxFit.cover),
-                                border: Border.all(style: BorderStyle.none),
-                                borderRadius: BorderRadius.circular(40),
+                      Container(
+                        margin: EdgeInsets.all(30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              child: Text(
+                                'Hello ${user.username}',
+                                style: TextStyle(
+                                  fontFamily: Utils.customFont,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: !_darkTheme
+                                      ? Utils.customPurpleColor
+                                      : null,
+                                ),
                               ),
-                              height: 60,
-                              width: 60,
-                              margin: EdgeInsets.only(top: 100, right: 50),
-                            )
-                          : null,
+                            ),
+                            !_darkTheme
+                                ? Stack(
+                                    children: <Widget>[
+                                      Container(
+                                        height: 70,
+                                        width: 70,
+                                        decoration: BoxDecoration(
+                                          color: Colors.amber,
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
+                                              ),
+                                              fit: BoxFit.cover),
+                                          border: Border.all(
+                                              style: BorderStyle.none),
+                                          borderRadius:
+                                              BorderRadius.circular(40),
+                                        ),
+                                      ),
+                                      new Positioned(
+                                        right: 0,
+                                        child: new Container(
+                                          padding: EdgeInsets.all(1),
+                                          decoration: new BoxDecoration(
+                                            color: Colors.red,
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                          ),
+                                          constraints: BoxConstraints(
+                                            minWidth: 12,
+                                            minHeight: 12,
+                                          ),
+                                          child: new Text(
+                                            '1',
+                                            style: new TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 8,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                : Container(),
+                          ],
+                        ),
+                      )
                     ],
                   ),
+                  CarouselSlider.builder(
+                      itemBuilder: (_, index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              height: 20,
+                              width: 70,
+                              child: Center(
+                                child: Text(
+                                  "NOUVEAU",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: Utils.customFont,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                      News.descriptionNews[index].image),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              height: 180,
+                              width: double.infinity,
+                            ),
+                            Text(News.descriptionNews[index].title,
+                                style: TextStyle(
+                                  color: Utils.customPurpleColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: Utils.customFont,
+                                ))
+                          ],
+                        );
+                      },
+                      itemCount: News.descriptionNews.length,
+                      options: CarouselOptions(
+                        height: 330,
+                        aspectRatio: 16 / 9,
+                        viewportFraction: 0.8,
+                        initialPage: 0,
+                        enableInfiniteScroll: true,
+                        reverse: false,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 3),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                        scrollDirection: Axis.horizontal,
+                      )),
                   Container(
                     child: Text("Retrouves tes dossiers",
                         style: TextStyle(
@@ -86,16 +180,12 @@ class _HomeState extends State<Home> {
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                             fontFamily: Utils.customFont)),
-                    margin: EdgeInsets.only(
-                      top: 230,
-                      left: 20,
-                    ),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Container(
-                        margin: EdgeInsets.only(top: 40),
+                          margin: EdgeInsets.only(top: 40),
                           height: MediaQuery.of(context).size.height / 1.75,
                           width: double.infinity,
                           decoration: BoxDecoration(

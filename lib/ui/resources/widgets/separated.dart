@@ -17,10 +17,10 @@ class Separated extends StatelessWidget {
       ),
       padding: EdgeInsets.all(30),
       itemBuilder: (ctx, index) => Card(
-        color: Utils.customPurpleColor,
+        color: Utils.customGreenColor,
         child: Container(
           decoration: BoxDecoration(
-            color: Utils.customPurpleColor,
+            color: Utils.customGreenColor,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +32,7 @@ class Separated extends StatelessWidget {
                   child: Text(
                     "${index + 1}",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Utils.customPurpleColor,
                       fontFamily: Utils.customFont,
                       fontWeight: FontWeight.bold,
                     ),
@@ -60,7 +60,7 @@ class Separated extends StatelessWidget {
                     Text(
                       "${datas[index]["habitatType"].toUpperCase()}",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Utils.customPurpleColor,
                         fontFamily: Utils.customFont,
                         fontWeight: FontWeight.bold,
                       ),
@@ -83,7 +83,7 @@ class Separated extends StatelessWidget {
                     Text(
                       datas[index]["town"],
                       style: TextStyle(
-                          color: Colors.white,
+                          color: Utils.customPurpleColor,
                           fontFamily: Utils.customFont,
                           fontWeight: FontWeight.bold,
                           fontSize: 10),

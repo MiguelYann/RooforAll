@@ -13,14 +13,15 @@ class UserProvider with ChangeNotifier {
   bool isLogged = false;
   String _ville;
   List<dynamic> _records;
-  SharedPreferences _sharedPreferences;
+  bool seen = false;
 
-  UserProvider( this._token);
-bool seen = false;
+  UserProvider(this._token);
 
-bool get logged {
-  return isLogged;
-}
+
+  bool get logged {
+    return isLogged;
+  }
+
   String get username {
     return _userName;
   }
@@ -38,6 +39,7 @@ bool get logged {
   }
 
   Dio _dio = Dio();
+  SharedPreferences _sharedPreferences;
 
   Future<dynamic> logUser(String anUsername, String aPassword) async {
     _sharedPreferences = await SharedPreferences.getInstance();
@@ -53,12 +55,14 @@ bool get logged {
     _token = response.headers.value("authorization").substring(7);
     _sharedPreferences.setString("token", _token);
     _token = _sharedPreferences.get("token");
+    print(_token);
     notifyListeners();
     return response;
   }
 
   Future<dynamic> registerUser(
       String aEmail, String anUsername, String aPassword) async {
+    _sharedPreferences = await SharedPreferences.getInstance();
     var response = await _dio.post('$DEFAULT_URL/api/users/signUp',
         data: jsonEncode(
             {'email': aEmail, 'username': anUsername, 'password': aPassword}));
@@ -66,12 +70,15 @@ bool get logged {
   }
 
   Future<dynamic> getUserInformation() async {
+    print("GET INFO");
     final response = await _dio.get('$DEFAULT_URL/api/users/getInfo',
         options: Options(
           headers: {"Authorization": 'Bearer $_token'},
         ));
+    print("RESPONSE ${response.statusCode}");
     _userName = response.data["username"];
     _records = response.data["records"];
+    print(_records);
     return _records;
   }
 }
