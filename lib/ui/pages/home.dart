@@ -98,6 +98,8 @@ class _HomeState extends State<Home> {
                                             style: new TextStyle(
                                               color: Colors.white,
                                               fontSize: 8,
+                                              fontFamily: Utils.customFont,
+                                              fontWeight: FontWeight.bold
                                             ),
                                             textAlign: TextAlign.center,
                                           ),
@@ -110,6 +112,9 @@ class _HomeState extends State<Home> {
                         ),
                       )
                     ],
+                  ),
+                  SizedBox(
+                    height: 30,
                   ),
                   CarouselSlider.builder(
                       itemBuilder: (_, index) {
@@ -173,13 +178,15 @@ class _HomeState extends State<Home> {
                         enlargeCenterPage: true,
                         scrollDirection: Axis.horizontal,
                       )),
-                  Container(
-                    child: Text("Retrouves tes dossiers",
-                        style: TextStyle(
-                            color: Utils.customPurpleColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            fontFamily: Utils.customFont)),
+                  Center(
+                    child: Container(
+                      child: Text("RETROUVES TES DOSSIERS",
+                          style: TextStyle(
+                              color: Utils.customGreenColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              fontFamily: Utils.customFont)),
+                    ),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,

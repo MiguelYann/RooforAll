@@ -13,6 +13,10 @@ class News {
     News(
         image:
             "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
-        title: "Nous preparons vos dossiers")
+        title: "Nous preparons vos dossiers"),
+    News(
+        image:
+            "https://images.unsplash.com/photo-1586985564259-6211deb4c122?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1615&q=80",
+        title: "Nous communiquons a distance"),
   ];
 }
