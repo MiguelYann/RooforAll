@@ -1,25 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatelessWidget {
-  final String title;
+class ProfilePage extends StatefulWidget {
 
-  const ProfilePage(this.title) : assert(title != null);
 
   @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
   Widget build(BuildContext context) {
-    final text = Text('Profile');
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-              child: Container(
-          child: Center(child: text),
-        ),
-      ),
-      appBar: AppBar(
-        title: text,
-        automaticallyImplyLeading: false,
-      ),
     );
   }
 }
