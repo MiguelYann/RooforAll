@@ -20,7 +20,6 @@ class _LandingScreenState extends State<LandingScreen> {
   List<SliderItem> _slides = List<SliderItem>();
   int _currentIndex = 0;
   PageController _pageController = PageController(initialPage: 0);
-  bool isviewer = false;
 
   @override
   void initState() {
@@ -68,8 +67,6 @@ class _LandingScreenState extends State<LandingScreen> {
         });
     final themeNotifier = Provider.of<ThemeNotif>(context);
     _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
-
-//    onView(isviewer, vuee);
 
     return Scaffold(
       body: PageView.builder(
