@@ -71,7 +71,12 @@ class _EditProfileState extends State<EditProfile> {
     final pickedFile =
         await picker.getImage(source: ImageSource.camera, imageQuality: 50);
 
+    if(pickedFile.path == null){
+      print("losr");
+      return;
+    }
     setState(() {
+      isLoadingImage = true;
       _imageProfile = File(pickedFile.path);
     });
   }
@@ -165,7 +170,7 @@ class _EditProfileState extends State<EditProfile> {
                                 : NetworkImage(
                                     "https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_640.png")),
                         InkWell(
-                          onTap: retrieveLostData,
+                          onTap: getImage,
                           child: Text(
                             "Modifier image",
                             style: TextStyle(
