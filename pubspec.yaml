@@ -28,6 +28,8 @@ dependencies:
   day_night_switch: ^0.0.2+1
   carousel_slider: ^2.0.0
   splashscreen: ^1.2.0
+  image_picker: ^0.6.1+1
+
 
 
 

@@ -48,7 +48,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   Widget build(BuildContext context) {
     final List<Widget> _widgetsPage = [
       Home(),
-      ProfilePage("Profile"),
+      ProfilePage(),
       SettingsPage(),
     ];
     return Scaffold(

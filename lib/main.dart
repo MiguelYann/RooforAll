@@ -18,10 +18,10 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences.getInstance().then((prefs) {
-    var darkModeOn = prefs.getBool('darkMode') ?? true;
+    var darkModeOn = prefs.getBool('darkMode') ?? false;
     String tokenId = prefs.get("token");
-    bool isView = prefs.getBool("seen");
-    print("is view $isView");
+//    bool isView = prefs.getBool("seen");
+//    print("is view $isView");
     runApp(
       MultiProvider(
         providers: [
@@ -43,7 +43,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  bool seen = false;
 
   @override
   void initState() {
@@ -116,8 +115,9 @@ class AfterSplash extends StatelessWidget {
                 if (user.token != null) {
                   print(user.token);
                   return BottomNavigation();
+                } else {
+                  return Login();
                 }
-                return Login();
               } else if (snapshot.data.getBool("seen") == null) {
                 return LandingScreen();
               } else {
