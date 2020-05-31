@@ -123,7 +123,6 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ],
                     ),
-
                     SizedBox(
                       height: 30,
                     ),
@@ -132,7 +131,6 @@ class _EditProfileState extends State<EditProfile> {
                       height: 30,
                     ),
                     createProfileEmailTextFormField(),
-
                     SizedBox(
                       height: 80,
                     ),
@@ -157,23 +155,6 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ),
                     ),
-
-//                      Padding(
-//                        padding: EdgeInsets.only(
-//                          top: 29.0,
-//                          left: 50.0,
-//                          right: 50.0,
-//                        ),
-//                        child: RaisedButton(
-//                          child: Text(
-//                            "LOGout",
-//                            style: TextStyle(
-//                              fontFamily: Utils.customFont,
-//                            ),
-//                          ),
-//                          onPressed: () {},
-//                        ),
-//                      ),
                   ],
                 ),
               ],

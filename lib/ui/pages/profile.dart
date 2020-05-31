@@ -64,27 +64,31 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 50,
             ),
             createButton(context),
-            FlatButton(
-              onPressed: () {
-                userProvider.logOut();
-                Navigator.pushNamed(context, Login.routeName);
-              },
-              child: Container(
-                width: 245,
-                height: 36,
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 1,
+              height: 76,
+              child: FlatButton(
+                onPressed: () {
+                  userProvider.logOut();
+                  Navigator.pushNamed(context, Login.routeName);
+                },
                 child: Text(
                   "Deconnexion",
                   style: TextStyle(
                     fontFamily: Utils.customFont,
                     color: Colors.white,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Utils.customPurpleColor,
-                  borderRadius: BorderRadius.circular(6),
-                ),
+              ),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Utils.customPurpleColor,
+                borderRadius: BorderRadius.circular(6),
               ),
             ),
           ],
@@ -141,26 +145,24 @@ editProfile(BuildContext context) {
 createButtonTitleAndFunction(BuildContext context,
     {String title, Function performFunction}) {
   return Container(
-    child: FlatButton(
-      onPressed: performFunction,
-      child: Container(
-        width: MediaQuery.of(context).size.width / 1,
-        height: 36,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        border: Border.all(color: Utils.customPurpleColor),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      width: MediaQuery.of(context).size.width / 1,
+      height: 76,
+      child: FlatButton(
+        onPressed: performFunction,
         child: Text(
           title,
           style: TextStyle(
             fontFamily: Utils.customFont,
             color: Utils.customPurpleColor,
+            fontSize: 15,
             fontWeight: FontWeight.bold,
           ),
         ),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          border: Border.all(color: Utils.customPurpleColor),
-          borderRadius: BorderRadius.circular(6),
-        ),
-      ),
-    ),
-  );
+      ));
 }
