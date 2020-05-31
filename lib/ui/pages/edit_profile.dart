@@ -71,7 +71,7 @@ class _EditProfileState extends State<EditProfile> {
     final pickedFile =
         await picker.getImage(source: ImageSource.camera, imageQuality: 50);
 
-    if(pickedFile.path == null){
+    if (pickedFile.path == null) {
       print("losr");
       return;
     }
@@ -184,11 +184,35 @@ class _EditProfileState extends State<EditProfile> {
                     SizedBox(
                       height: 30,
                     ),
-                    createProfileNameTextFormField(context),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Nom utilisateur",
+                          style: TextStyle(
+                              fontFamily: Utils.customFont,
+                              fontStyle: FontStyle.italic,
+                              color: Utils.customPurpleColor),
+                        ),
+                        createProfileNameTextFormField(context),
+                      ],
+                    ),
                     SizedBox(
                       height: 30,
                     ),
-                    createProfileEmailTextFormField(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Adresse electronique",
+                          style: TextStyle(
+                              fontFamily: Utils.customFont,
+                              fontStyle: FontStyle.italic,
+                              color: Utils.customPurpleColor),
+                        ),
+                        createProfileEmailTextFormField(),
+                      ],
+                    ),
                     SizedBox(
                       height: 80,
                     ),
