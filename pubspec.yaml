@@ -60,7 +60,6 @@ flutter:
    - assets/images/screenSplashAssistance.svg
    - assets/images/screenSplashHome.svg
    - assets/images/screenSplashTime.svg
-   - assets/images/splashScreen.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
