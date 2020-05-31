@@ -1,4 +1,9 @@
+import 'dart:convert';
+import 'dart:io' as Io;
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,8 +25,10 @@ class _EditProfileState extends State<EditProfile> {
   bool loading = false;
   bool _validName = true;
   bool _validEmail = true;
-
+  File _imageProfile;
   bool _mailValid = true;
+  bool isLoadingImage = false;
+  final picker = ImagePicker();
 
   updateData() {
     setState(() {
@@ -45,6 +52,47 @@ class _EditProfileState extends State<EditProfile> {
         backgroundColor: Colors.amber,
       );
       _scaffoldGlobalKey.currentState.showSnackBar(successSnackBar);
+    }
+  }
+
+  Future getProfileImage() async {
+    File image;
+    image = await ImagePicker.pickImage(source: ImageSource.camera);
+    final bytes = await Io.File(image.path).readAsBytes();
+    String img64 = base64Encode(bytes);
+    print(img64.substring(0, 100));
+    setState(() {
+      isLoadingImage = true;
+      _imageProfile = image;
+    });
+  }
+
+  Future getImage() async {
+    final pickedFile =
+        await picker.getImage(source: ImageSource.camera, imageQuality: 50);
+
+    setState(() {
+      _imageProfile = File(pickedFile.path);
+    });
+  }
+
+  Future<void> retrieveLostData() async {
+    final LostData response = await picker.getLostData();
+    print("Lossst");
+    if (response == null) {
+      print("Lossst");
+
+      return;
+    }
+    if (response.file != null) {
+      final pickedFile =
+          await picker.getImage(source: ImageSource.camera, imageQuality: 50);
+
+      setState(() {
+        if (response.type == RetrieveType.image) {
+          _imageProfile = File(pickedFile.path);
+        }
+      });
     }
   }
 
@@ -109,16 +157,21 @@ class _EditProfileState extends State<EditProfile> {
                     Column(
                       children: <Widget>[
                         CircleAvatar(
-                          radius: 52.0,
-                          backgroundImage: NetworkImage(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
-                          ),
-                        ),
-                        Text(
-                          "Modifier image",
-                          style: TextStyle(
-                            color: Utils.customGreenColor,
-                            fontFamily: Utils.customFont,
+                            radius: 52.0,
+                            backgroundImage: isLoadingImage
+                                ? FileImage(
+                                    _imageProfile,
+                                  )
+                                : NetworkImage(
+                                    "https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_640.png")),
+                        InkWell(
+                          onTap: retrieveLostData,
+                          child: Text(
+                            "Modifier image",
+                            style: TextStyle(
+                              color: Utils.customGreenColor,
+                              fontFamily: Utils.customFont,
+                            ),
                           ),
                         ),
                       ],
