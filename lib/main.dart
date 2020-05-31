@@ -19,8 +19,8 @@ void main() {
   SharedPreferences.getInstance().then((prefs) {
     var darkModeOn = prefs.getBool('darkMode') ?? true;
     String tokenId = prefs.get("token");
-    bool isView = prefs.getBool("seen");
-    print("is view $isView");
+//    bool isView = prefs.getBool("seen");
+//    print("is view $isView");
     runApp(
       MultiProvider(
         providers: [
@@ -42,7 +42,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  bool seen = false;
 
   @override
   void initState() {
@@ -87,12 +86,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           builder: (ctx, snapshot) {
             if (snapshot.hasData) {
               print(snapshot.data.getBool("seen"));
-              if (snapshot.data.getBool("seen") == true ) {
-                if(user.token != null) {
+              if (snapshot.data.getBool("seen") == true) {
+                if (user.token != null) {
                   print(user.token);
                   return BottomNavigation();
+                } else {
+                  return Login();
                 }
-                return Login();
               } else if (snapshot.data.getBool("seen") == null) {
                 return LandingScreen();
               } else {

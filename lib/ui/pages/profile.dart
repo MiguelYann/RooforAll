@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rooforall/data/provider/user_provider.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 
 import 'edit_profile.dart';
+import 'login.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -14,6 +17,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(98.0),
@@ -33,7 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     alignment: Alignment.center,
                     padding: EdgeInsets.only(top: 13.0),
                     child: Text(
-                      "John",
+                      userProvider.username,
                       style: TextStyle(
                         color: Utils.customPurpleColor,
                         fontWeight: FontWeight.bold,
@@ -49,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      createColums("Dossiers", 3),
+                      createColums("Dossiers", userProvider.totalRecords),
                       createColums("Logements", 3),
                     ],
                   ),
@@ -62,7 +66,8 @@ class _ProfilePageState extends State<ProfilePage> {
             createButton(context),
             FlatButton(
               onPressed: () {
-                //deconnexion
+                userProvider.logOut();
+                Navigator.pushNamed(context, Login.routeName);
               },
               child: Container(
                 width: 245,

@@ -14,9 +14,9 @@ class UserProvider with ChangeNotifier {
   String _ville;
   List<dynamic> _records;
   bool seen = false;
+  int totalRecords = 0;
 
   UserProvider(this._token);
-
 
   bool get logged {
     return isLogged;
@@ -78,7 +78,15 @@ class UserProvider with ChangeNotifier {
     print("RESPONSE ${response.statusCode}");
     _userName = response.data["username"];
     _records = response.data["records"];
+    totalRecords = _records.length;
     print(_records);
     return _records;
+  }
+
+  void logOut() {
+    _sharedPreferences.remove("token");
+    _token = null;
+    print("Logout");
+    notifyListeners();
   }
 }
