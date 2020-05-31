@@ -17,6 +17,8 @@ class Separated extends StatelessWidget {
       ),
       padding: EdgeInsets.all(30),
       itemBuilder: (ctx, index) => Container(
+        height: MediaQuery.of(context).size.height/6,
+        width: MediaQuery.of(context).size.height/4,
         decoration: BoxDecoration(
             color: Utils.customGreenColor,
             borderRadius: BorderRadius.circular(40)),
