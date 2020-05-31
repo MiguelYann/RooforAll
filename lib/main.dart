@@ -11,6 +11,7 @@ import 'ui/pages/landing.dart';
 import 'ui/pages/login.dart';
 import 'ui/resources/utils/utils.dart';
 import 'ui/resources/widgets/bottom_navigation.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 void main() {
   print("nooooo");
@@ -63,6 +64,30 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     print('FINISHED');
   }
 
+  loadWidget() async {
+    return await new Future<Widget>.delayed(
+        Duration(seconds: 1), () => AfterSplash());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: SplashScreen(
+          seconds: 4,
+          navigateAfterSeconds: new AfterSplash(),
+          title:  Text(
+            'Welcome',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+          ),
+          image: Image.network("https://i.imgur.com/abWzWEp.png"),
+          styleTextUnderTheLoader: TextStyle(),
+          photoSize: 100.0,
+          loaderColor: Colors.black),
+    );
+  }
+}
+
+class AfterSplash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("Build");
