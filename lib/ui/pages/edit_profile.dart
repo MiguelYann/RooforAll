@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfile extends StatefulWidget {
   final String currentId;
@@ -39,7 +40,6 @@ class _EditProfileState extends State<EditProfile> {
           "Profile mis a jour avec succes",
           style: TextStyle(
             fontFamily: Utils.customFont,
-
           ),
         ),
         backgroundColor: Colors.amber,
@@ -59,9 +59,12 @@ class _EditProfileState extends State<EditProfile> {
       loading = true;
     });
 
-    //recuper les informations
+    final _sharePreferences = await SharedPreferences.getInstance();
+    _textEditingControllerUsername.text =
+        _sharePreferences.getString("username");
 
-    //assigner le username du profider a texEditingProfile.text
+    _textEditingControllerUserMail.text =
+        _sharePreferences.getString("userMail");
 
     setState(() {
       loading = false;
@@ -103,12 +106,24 @@ class _EditProfileState extends State<EditProfile> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    CircleAvatar(
-                      radius: 52.0,
-                      backgroundImage: NetworkImage(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
-                      ),
+                    Column(
+                      children: <Widget>[
+                        CircleAvatar(
+                          radius: 52.0,
+                          backgroundImage: NetworkImage(
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
+                          ),
+                        ),
+                        Text(
+                          "Modifier image",
+                          style: TextStyle(
+                            color: Utils.customGreenColor,
+                            fontFamily: Utils.customFont,
+                          ),
+                        ),
+                      ],
                     ),
+
                     SizedBox(
                       height: 30,
                     ),
@@ -119,18 +134,19 @@ class _EditProfileState extends State<EditProfile> {
                     createProfileEmailTextFormField(),
 
                     SizedBox(
-                      height: 30,
+                      height: 80,
                     ),
                     FlatButton(
                       onPressed: updateData,
                       child: Container(
                         width: MediaQuery.of(context).size.width / 1,
-                        height: 36,
+                        height: 76,
                         child: Text(
                           "Enregistrer",
                           style: TextStyle(
                             fontFamily: Utils.customFont,
                             color: Colors.white,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -189,6 +205,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
               hintStyle: TextStyle(
                 color: Colors.grey,
+                fontFamily: Utils.customFont,
               ),
               errorText: _validName ? null : "Profile name is short")),
     );
@@ -216,9 +233,8 @@ class _EditProfileState extends State<EditProfile> {
               color: Colors.grey,
             ),
           ),
-          hintStyle: TextStyle(
-            color: Colors.grey,
-          ),
+          hintStyle:
+              TextStyle(color: Colors.grey, fontFamily: Utils.customFont),
           errorText: _validEmail ? null : "Profile email is short",
         ),
       ),
