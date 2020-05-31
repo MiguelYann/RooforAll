@@ -34,8 +34,16 @@ class _EditProfileState extends State<EditProfile> {
 
     if (_validEmail && _validName) {
       //update
-      SnackBar successSnackBar =
-          SnackBar(content: Text("Profile mis a jour avec succes"));
+      SnackBar successSnackBar = SnackBar(
+        content: Text(
+          "Profile mis a jour avec succes",
+          style: TextStyle(
+            fontFamily: Utils.customFont,
+
+          ),
+        ),
+        backgroundColor: Colors.amber,
+      );
       _scaffoldGlobalKey.currentState.showSnackBar(successSnackBar);
     }
   }
@@ -46,11 +54,9 @@ class _EditProfileState extends State<EditProfile> {
     getAndDisplayUserInformation();
   }
 
-
   void getAndDisplayUserInformation() async {
     setState(() {
       loading = true;
-
     });
 
     //recuper les informations
@@ -67,6 +73,7 @@ class _EditProfileState extends State<EditProfile> {
     return Scaffold(
       key: _scaffoldGlobalKey,
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Utils.customGreenColor,
         title: Text(
           "Modifier mon profil",
@@ -93,46 +100,47 @@ class _EditProfileState extends State<EditProfile> {
           ? CircularProgressIndicator()
           : ListView(
               children: <Widget>[
-                Container(
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: 15.0,
-                          bottom: 7.0,
-                        ),
-                        child: CircleAvatar(
-                          radius: 52.0,
-                          backgroundImage: NetworkImage(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    CircleAvatar(
+                      radius: 52.0,
+                      backgroundImage: NetworkImage(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    createProfileNameTextFormField(context),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    createProfileEmailTextFormField(),
+
+                    SizedBox(
+                      height: 30,
+                    ),
+                    FlatButton(
+                      onPressed: updateData,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1,
+                        height: 36,
+                        child: Text(
+                          "Enregistrer",
+                          style: TextStyle(
+                            fontFamily: Utils.customFont,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Column(
-                          children: <Widget>[
-                            createProfileNameTextFormField(),
-                            createProfileEmailTextFormField(),
-                          ],
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Utils.customPurpleColor,
+                          borderRadius: BorderRadius.circular(6),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: 29.0,
-                          left: 50.0,
-                          right: 50.0,
-                        ),
-                        child: RaisedButton(
-                          child: Text(
-                            "Update",
-                            style: TextStyle(
-                              fontFamily: Utils.customFont,
-                            ),
-                          ),
-                          onPressed: updateData,
-                        ),
-                      ),
+                    ),
 
 //                      Padding(
 //                        padding: EdgeInsets.only(
@@ -150,92 +158,70 @@ class _EditProfileState extends State<EditProfile> {
 //                          onPressed: () {},
 //                        ),
 //                      ),
-                    ],
-                  ),
-                )
+                  ],
+                ),
               ],
             ),
     );
   }
 
-  Column createProfileNameTextFormField() {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(top: 13.0),
-          child: Text(
-            "Nom utilisateur",
-            style: TextStyle(
-              color: Colors.red,
-              fontFamily: Utils.customFont,
-            ),
-          ),
-        ),
-        TextField(
+  Container createProfileNameTextFormField(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width / 1.2,
+      child: TextField(
           style: TextStyle(
             fontFamily: Utils.customFont,
           ),
           controller: _textEditingControllerUsername,
           decoration: InputDecoration(
-            hintText: "Ecrire votre nom",
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
+              hintText: "Ecrire votre nom",
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  style: BorderStyle.solid,
+                  color: Colors.grey,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  style: BorderStyle.solid,
+                  color: Colors.grey,
+                ),
+              ),
+              hintStyle: TextStyle(
                 color: Colors.grey,
               ),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.white,
-              ),
-            ),
-            hintStyle: TextStyle(
-              color: Colors.grey,
-            ),
-            errorText: _validName ? null : "Profile name is short",
-          ),
-        )
-      ],
+              errorText: _validName ? null : "Profile name is short")),
     );
   }
 
-  Column createProfileEmailTextFormField() {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(top: 13.0),
-          child: Text(
-            "Email utilisateur",
-            style: TextStyle(
-              color: Colors.red,
-              fontFamily: Utils.customFont,
-            ),
-          ),
+  Container createProfileEmailTextFormField() {
+    return Container(
+      width: MediaQuery.of(context).size.width / 1.2,
+      child: TextField(
+        style: TextStyle(
+          fontFamily: Utils.customFont,
         ),
-        TextField(
-          style: TextStyle(
-            fontFamily: Utils.customFont,
-          ),
-          controller: _textEditingControllerUserMail,
-          decoration: InputDecoration(
-            hintText: "Ecrire votre email",
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.grey,
-              ),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.white,
-              ),
-            ),
-            hintStyle: TextStyle(
+        controller: _textEditingControllerUserMail,
+        decoration: InputDecoration(
+          hintText: "Ecrire votre email",
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              style: BorderStyle.solid,
               color: Colors.grey,
             ),
-            errorText: _validEmail ? null : "Profile email is short",
           ),
-        )
-      ],
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              style: BorderStyle.solid,
+              color: Colors.grey,
+            ),
+          ),
+          hintStyle: TextStyle(
+            color: Colors.grey,
+          ),
+          errorText: _validEmail ? null : "Profile email is short",
+        ),
+      ),
     );
   }
-
 }

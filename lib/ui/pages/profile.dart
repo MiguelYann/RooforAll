@@ -82,7 +82,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-
           ],
         ),
       ),
@@ -119,6 +118,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   createButton(BuildContext context) {
     return createButtonTitleAndFunction(
+      context,
       title: "Modifier mon profil",
       performFunction: () => editProfile(context),
     );
@@ -133,12 +133,13 @@ editProfile(BuildContext context) {
       ));
 }
 
-createButtonTitleAndFunction({String title, Function performFunction}) {
+createButtonTitleAndFunction(BuildContext context,
+    {String title, Function performFunction}) {
   return Container(
     child: FlatButton(
       onPressed: performFunction,
       child: Container(
-        width: 245,
+        width: MediaQuery.of(context).size.width / 1,
         height: 36,
         child: Text(
           title,
