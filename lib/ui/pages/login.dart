@@ -92,37 +92,6 @@ class _LoginState extends State<Login> {
           await SharedPreferences.getInstance();
 
       sharedPreferences.setString("token", userProvider.token);
-      // switch (response.statusCode) {
-      //   case 200:
-      //     setState(() {
-      //       logStatus = LogStatus.SUCESS_CONNECT;
-      //     });
-      //     break;
-
-      //   case 401:
-      //     setState(() {
-      //       logStatus = LogStatus.FAIL_CONNECT;
-      //     });
-      //     break;
-
-      //   case 403:
-      //     setState(() {
-      //       logStatus = LogStatus.FAIL_CONNECT;
-      //     });
-      //     break;
-
-      //   case 404:
-      //     setState(() {
-      //       logStatus = LogStatus.FAIL_CONNECT;
-      //     });
-      //     break;
-
-      //   default:
-      //     setState(() {
-      //       logStatus = LogStatus.INITIAL;
-      //     });
-      // }
-
       Navigator.pushNamed(context, BottomNavigation.routeName,
           arguments: userProvider.username);
       print("RECU ${userProvider.username}");
