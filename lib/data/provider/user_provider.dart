@@ -101,7 +101,6 @@ class UserProvider with ChangeNotifier {
     _records = response.data["records"];
     totalRecords = _records.length;
     print(_records);
-    notifyListeners();
     return response.data;
   }
 
