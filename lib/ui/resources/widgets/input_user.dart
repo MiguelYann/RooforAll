@@ -8,14 +8,14 @@ class UserInput extends StatelessWidget {
   final String labelInput;
   final IconData prefixiconItem;
   final IconData suffixIconIten;
-  final bool showPassword;
+  final bool hiddenPassword;
   final Function setVisiblePassword;
 
   UserInput({
     @required this.textInput,
     @required this.prefixiconItem,
     this.suffixIconIten,
-    this.showPassword,
+    this.hiddenPassword,
     this.setVisiblePassword,
     @required this.labelInput,
   });
@@ -27,7 +27,7 @@ class UserInput extends StatelessWidget {
      final themeNotifier = Provider.of<ThemeNotif>(context);
     _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
     return TextField(
-      obscureText: showPassword ?? true,
+      obscureText: hiddenPassword ?? true,
       controller: textInput,
       decoration: InputDecoration(
         hintText: labelInput,

@@ -31,7 +31,7 @@ class SliderLanding extends StatelessWidget {
             title,
             style: TextStyle(
               color: _darkTheme
-                  ? Theme.of(context).accentColor
+                  ? Colors.white
                   : Utils.customPurpleColor,
               fontFamily: Utils.customFont,
               fontWeight: FontWeight.bold,
@@ -44,9 +44,9 @@ class SliderLanding extends StatelessWidget {
             description,
             style: TextStyle(
               fontFamily: Utils.customFont,
-              color: _darkTheme
-                  ? Theme.of(context).accentColor
-                  : Utils.customPurpleColor,
+              color: !_darkTheme
+                  ? Utils.customPurpleColor
+                  : Colors.white,
             ),
           )
         ],

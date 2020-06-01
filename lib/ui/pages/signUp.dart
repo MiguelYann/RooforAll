@@ -67,7 +67,7 @@ class _SignUpState extends State<SignUp> {
                 Container(
                     width: MediaQuery.of(context).size.width / 1.3,
                     child: UserInput(
-                      showPassword: false,
+                      hiddenPassword: false,
                       textInput: _emailEditingController,
                       prefixiconItem: Icons.email,
                       labelInput: 'Email',
@@ -76,6 +76,7 @@ class _SignUpState extends State<SignUp> {
                     margin: EdgeInsets.only(top: 20),
                     width: MediaQuery.of(context).size.width / 1.3,
                     child: UserInput(
+                      hiddenPassword: false,
                       textInput: _userNameEditingController,
                       prefixiconItem: Icons.person,
                       labelInput: 'Nom utilisateur',

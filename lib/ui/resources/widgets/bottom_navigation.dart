@@ -5,6 +5,7 @@ import 'package:rooforall/data/provider/picture_provider.dart';
 import 'package:rooforall/ui/pages/home.dart';
 import 'package:rooforall/ui/pages/profile.dart';
 import 'package:rooforall/ui/pages/setting.dart';
+import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -24,15 +25,15 @@ class _BottomNavigationState extends State<BottomNavigation> {
   var _items = [
     BottomNavigationBarItem(
       icon: Icon(Icons.home, color: Utils.customGreenColor),
-      title: Text('Accueil'),
+      title: Text(''),
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.account_circle, color: Utils.customGreenColor),
-      title: Text('profile'),
+      title: Text(''),
     ),
     BottomNavigationBarItem(
         icon: Icon(Icons.settings, color: Utils.customGreenColor),
-        title: Text('settings'))
+        title: Text(''))
   ];
 
   void _incrementTab(int index) {
@@ -49,6 +50,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    var _darkTheme = true;
+
+    final themeNotifier = Provider.of<ThemeNotif>(context);
+    _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
     final List<Widget> _widgetsPage = [
       Home(),
       ChangeNotifierProvider.value(

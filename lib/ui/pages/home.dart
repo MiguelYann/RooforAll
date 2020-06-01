@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
                                       fontWeight: FontWeight.bold,
                                       color: !_darkTheme
                                           ? Utils.customPurpleColor
-                                          : null,
+                                          : Colors.white,
                                     ),
                                   ),
                                 ),
@@ -99,7 +99,34 @@ class _HomeState extends State<Home> {
                                           }
                                         },
                                       )
-                                    : Container(),
+                                    : FutureBuilder(
+                                  future: getImageFromPath(
+                                    snapShot.data
+                                        .getString("imageProfile"),
+                                  ),
+                                  builder: (ctx, snapshotImage) {
+                                    if (snapshotImage.hasData) {
+                                      return Stack(
+                                        children: <Widget>[
+                                          CircleAvatar(
+                                            radius: 52,
+                                            backgroundImage:
+                                            snapshotImage.data.image,
+                                          ),
+                                        ],
+                                      );
+                                    } else {
+                                      return Stack(
+                                        children: <Widget>[
+                                          CircleAvatar(
+                                              radius: 52.0,
+                                              backgroundImage: NetworkImage(
+                                                  "https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_640.png")),
+                                        ],
+                                      );
+                                    }
+                                  },
+                                ),
                               ],
                             ),
                           )
@@ -148,7 +175,7 @@ class _HomeState extends State<Home> {
                                 ),
                                 Text(News.descriptionNews[index].title,
                                     style: TextStyle(
-                                      color: Utils.customPurpleColor,
+                                      color: !_darkTheme ? Utils.customPurpleColor: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: Utils.customFont,
                                     ))

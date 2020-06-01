@@ -156,7 +156,7 @@ class _LoginState extends State<Login> {
                     Container(
                         width: MediaQuery.of(context).size.width / 1.3,
                         child: UserInput(
-                          showPassword: false,
+                          hiddenPassword: false,
                           textInput: _userNameEditingController,
                           prefixiconItem: Icons.person,
                           labelInput: "Entrer votre nom d'utilisateur",
@@ -165,7 +165,7 @@ class _LoginState extends State<Login> {
                         margin: EdgeInsets.only(top: 20),
                         width: MediaQuery.of(context).size.width / 1.3,
                         child: UserInput(
-                          showPassword: isVisiblePassword,
+                          hiddenPassword: isVisiblePassword,
                           setVisiblePassword: this.showPassord,
                           textInput: _passwordEditingController,
                           prefixiconItem: Icons.vpn_key,
