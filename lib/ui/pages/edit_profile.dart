@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:io' as Io;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -120,134 +118,400 @@ class _EditProfileState extends State<EditProfile> {
     final themeNotifier = Provider.of<ThemeNotif>(context);
     _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
 
-    return Scaffold(
-      key: _scaffoldGlobalKey,
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: !_darkTheme ? Utils.customGreenColor : Colors.black,
-        title: Text(
-          "Modifier mon profil",
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: Utils.customFont,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.done,
-              color: Utils.customGreenColor,
-              size: 30.0,
+    return BaseWidget(builder: (context, sizingInformation) {
+      if (sizingInformation.deviceScreenType == DeviceScreenType.Mobile) {
+        return Scaffold(
+          key: _scaffoldGlobalKey,
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor:
+                !_darkTheme ? Utils.customGreenColor : Colors.black,
+            title: Text(
+              "Modifier mon profil",
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: Utils.customFont,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.done,
+                  color: Utils.customGreenColor,
+                  size: 30.0,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
           ),
-        ],
-      ),
-      body: loading
-          ? CircularProgressIndicator()
-          : ListView(
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          body: loading
+              ? CircularProgressIndicator()
+              : ListView(
                   children: <Widget>[
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        CircleAvatar(
-                            radius: 52.0,
-                            backgroundImage: isLoadingImage
-                                ? FileImage(
-                                    _imageProfile,
-                                  )
-                                : NetworkImage(
-                                    "https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_640.png")),
-                        InkWell(
-                          onTap: getImage,
-                          child: Text(
-                            "Modifier image",
-                            style: TextStyle(
+                        Column(
+                          children: <Widget>[
+                            CircleAvatar(
+                                radius: 52.0,
+                                backgroundImage: isLoadingImage
+                                    ? FileImage(
+                                        _imageProfile,
+                                      )
+                                    : NetworkImage(
+                                        "https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_640.png")),
+                            InkWell(
+                              onTap: getImage,
+                              child: Text(
+                                "Modifier image",
+                                style: TextStyle(
+                                  color: !_darkTheme
+                                      ? Utils.customGreenColor
+                                      : Colors.white,
+                                  fontFamily: Utils.customFont,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Nom utilisateur",
+                              style: TextStyle(
+                                fontFamily: Utils.customFont,
+                                fontStyle: FontStyle.italic,
+                                fontSize: 12,
+                                color: !_darkTheme
+                                    ? Utils.customPurpleColor
+                                    : Colors.white,
+                              ),
+                            ),
+                            createProfileNameTextFormField(context),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Mot de passe",
+                              style: TextStyle(
+                                fontFamily: Utils.customFont,
+                                fontStyle: FontStyle.italic,
+                                fontSize: 12,
+                                color: !_darkTheme
+                                    ? Utils.customPurpleColor
+                                    : Colors.white,
+                              ),
+                            ),
+                            createProfilePasswordTextFormField(),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 80,
+                        ),
+                        FlatButton(
+                          onPressed: () => updateData(context),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 1.2,
+                            height: 76,
+                            child: Text(
+                              "Enregistrer",
+                              style: TextStyle(
+                                fontFamily: Utils.customFont,
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
                               color: !_darkTheme
-                                  ? Utils.customGreenColor
-                                  : Colors.white,
-                              fontFamily: Utils.customFont,
+                                  ? Utils.customPurpleColor
+                                  : Utils.customGreenColor,
+                              borderRadius: BorderRadius.circular(6),
                             ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
+                  ],
+                ),
+        );
+      } else if (sizingInformation.deviceScreenType ==
+          DeviceScreenType.Desktop) {
+        return Scaffold(
+          key: _scaffoldGlobalKey,
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor:
+                !_darkTheme ? Utils.customGreenColor : Colors.black,
+            title: Text(
+              "Modifier mon profil",
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: Utils.customFont,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.done,
+                  color: Utils.customGreenColor,
+                  size: 30.0,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+          body: loading
+              ? CircularProgressIndicator()
+              : ListView(
+                  children: <Widget>[
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(
-                          "Nom utilisateur",
-                          style: TextStyle(
-                            fontFamily: Utils.customFont,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 12,
-                            color: !_darkTheme
-                                ? Utils.customPurpleColor
-                                : Colors.white,
+                        Column(
+                          children: <Widget>[
+                            CircleAvatar(
+                                radius: 52.0,
+                                backgroundImage: isLoadingImage
+                                    ? FileImage(
+                                        _imageProfile,
+                                      )
+                                    : NetworkImage(
+                                        "https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_640.png")),
+                            InkWell(
+                              onTap: getImage,
+                              child: Text(
+                                "Modifier image",
+                                style: TextStyle(
+                                  color: !_darkTheme
+                                      ? Utils.customGreenColor
+                                      : Colors.white,
+                                  fontFamily: Utils.customFont,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Nom utilisateur",
+                              style: TextStyle(
+                                fontFamily: Utils.customFont,
+                                fontStyle: FontStyle.italic,
+                                fontSize: 12,
+                                color: !_darkTheme
+                                    ? Utils.customPurpleColor
+                                    : Colors.white,
+                              ),
+                            ),
+                            createProfileNameTextFormField(context),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Mot de passe",
+                              style: TextStyle(
+                                fontFamily: Utils.customFont,
+                                fontStyle: FontStyle.italic,
+                                fontSize: 12,
+                                color: !_darkTheme
+                                    ? Utils.customPurpleColor
+                                    : Colors.white,
+                              ),
+                            ),
+                            createProfilePasswordTextFormField(),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 80,
+                        ),
+                        FlatButton(
+                          onPressed: () => updateData(context),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 1.2,
+                            height: 76,
+                            child: Text(
+                              "Enregistrer",
+                              style: TextStyle(
+                                fontFamily: Utils.customFont,
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: !_darkTheme
+                                  ? Utils.customPurpleColor
+                                  : Utils.customGreenColor,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
                           ),
                         ),
-                        createProfileNameTextFormField(context),
                       ],
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          "Mot de passe",
-                          style: TextStyle(
-                            fontFamily: Utils.customFont,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 12,
-                            color: !_darkTheme
-                                ? Utils.customPurpleColor
-                                : Colors.white,
-                          ),
-                        ),
-                        createProfilePasswordTextFormField(),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 80,
-                    ),
-                    FlatButton(
-                      onPressed: () => updateData(context),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 1.2,
-                        height: 76,
-                        child: Text(
-                          "Enregistrer",
-                          style: TextStyle(
-                            fontFamily: Utils.customFont,
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: !_darkTheme
-                              ? Utils.customPurpleColor
-                              : Utils.customGreenColor,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                      ),
                     ),
                   ],
                 ),
-              ],
+        );
+      } else {
+        return Scaffold(
+          key: _scaffoldGlobalKey,
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor:
+                !_darkTheme ? Utils.customGreenColor : Colors.black,
+            title: Text(
+              "Modifier mon profil",
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: Utils.customFont,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-    );
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.done,
+                  color: Utils.customGreenColor,
+                  size: 30.0,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+          body: loading
+              ? CircularProgressIndicator()
+              : ListView(
+                  children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            CircleAvatar(
+                                radius: 52.0,
+                                backgroundImage: isLoadingImage
+                                    ? FileImage(
+                                        _imageProfile,
+                                      )
+                                    : NetworkImage(
+                                        "https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_640.png")),
+                            InkWell(
+                              onTap: getImage,
+                              child: Text(
+                                "Modifier image",
+                                style: TextStyle(
+                                  color: !_darkTheme
+                                      ? Utils.customGreenColor
+                                      : Colors.white,
+                                  fontFamily: Utils.customFont,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Nom utilisateur",
+                              style: TextStyle(
+                                fontFamily: Utils.customFont,
+                                fontStyle: FontStyle.italic,
+                                fontSize: 12,
+                                color: !_darkTheme
+                                    ? Utils.customPurpleColor
+                                    : Colors.white,
+                              ),
+                            ),
+                            createProfileNameTextFormField(context),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Mot de passe",
+                              style: TextStyle(
+                                fontFamily: Utils.customFont,
+                                fontStyle: FontStyle.italic,
+                                fontSize: 12,
+                                color: !_darkTheme
+                                    ? Utils.customPurpleColor
+                                    : Colors.white,
+                              ),
+                            ),
+                            createProfilePasswordTextFormField(),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 80,
+                        ),
+                        FlatButton(
+                          onPressed: () => updateData(context),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 1.2,
+                            height: 76,
+                            child: Text(
+                              "Enregistrer",
+                              style: TextStyle(
+                                fontFamily: Utils.customFont,
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: !_darkTheme
+                                  ? Utils.customPurpleColor
+                                  : Utils.customGreenColor,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+        );
+      }
+    });
   }
 
   Container createProfileNameTextFormField(BuildContext context) {

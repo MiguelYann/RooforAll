@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:rooforall/data/provider/user_provider.dart';
 import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rooforall/ui/resources/widgets/base_widget.dart';
+import 'package:rooforall/ui/resources/responsive/device_screen_type.dart';
 
 import 'edit_profile.dart';
 import 'login.dart';
@@ -43,92 +44,274 @@ class _ProfilePageState extends State<ProfilePage> {
     _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
 
     final userProvider = Provider.of<UserProvider>(context);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: !_darkTheme ? Utils.customPurpleColor : Colors.black,
-        title: Text(
-          "Mon profile",
-          style: TextStyle(
-              fontFamily: Utils.customFont,
-              fontWeight: FontWeight.bold,
-              color: Colors.white),
-        ),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(90),
-            child: Column(
-              children: <Widget>[
-                Center(
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.only(top: 13.0),
-                    child: Text(
-                      "${userProvider.username.toUpperCase()}" ?? "",
-                      style: TextStyle(
-                        color: !_darkTheme
-                            ? Utils.customPurpleColor
-                            : Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        fontFamily: Utils.customFont,
+    return BaseWidget(builder: (context, sizingInformation) {
+      if (sizingInformation.deviceScreenType == DeviceScreenType.Mobile) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor:
+                !_darkTheme ? Utils.customPurpleColor : Colors.black,
+            title: Text(
+              "Mon profile",
+              style: TextStyle(
+                  fontFamily: Utils.customFont,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            centerTitle: true,
+          ),
+          body: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(90),
+                child: Column(
+                  children: <Widget>[
+                    Center(
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.only(top: 13.0),
+                        child: Text(
+                          "${userProvider.username.toUpperCase()}" ?? "",
+                          style: TextStyle(
+                            color: !_darkTheme
+                                ? Utils.customPurpleColor
+                                : Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            fontFamily: Utils.customFont,
+                          ),
+                        ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          createColums("Dossiers", userProvider.totalRecords),
+                          createColums("Logements", 0),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              createButton(context, _darkTheme),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 1.2,
+                height: 76,
+                child: FlatButton(
+                  onPressed: () {
+                    userProvider.logOut();
+                    Navigator.pushNamed(context, Login.routeName);
+                  },
+                  child: Text(
+                    "Deconnexion",
+                    style: TextStyle(
+                      fontFamily: Utils.customFont,
+                      color: Colors.white,
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      createColums("Dossiers", userProvider.totalRecords),
-                      createColums("Logements", 0),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          createButton(context, _darkTheme),
-          SizedBox(
-            height: 30,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / 1.2,
-            height: 76,
-            child: FlatButton(
-              onPressed: () {
-                userProvider.logOut();
-                Navigator.pushNamed(context, Login.routeName);
-              },
-              child: Text(
-                "Deconnexion",
-                style: TextStyle(
-                  fontFamily: Utils.customFont,
-                  color: Colors.white,
-                  fontSize: 19,
-                  fontWeight: FontWeight.bold,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: !_darkTheme
+                      ? Utils.customPurpleColor
+                      : Utils.customGreenColor,
+                  borderRadius: BorderRadius.circular(6),
                 ),
               ),
-            ),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: !_darkTheme
-                  ? Utils.customPurpleColor
-                  : Utils.customGreenColor,
-              borderRadius: BorderRadius.circular(6),
-            ),
+            ],
           ),
-        ],
-      ),
-    );
+        );
+      } else if (sizingInformation.deviceScreenType ==
+          DeviceScreenType.Desktop) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor:
+                !_darkTheme ? Utils.customPurpleColor : Colors.black,
+            title: Text(
+              "Mon profile",
+              style: TextStyle(
+                  fontFamily: Utils.customFont,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            centerTitle: true,
+          ),
+          body: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(90),
+                child: Column(
+                  children: <Widget>[
+                    Center(
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.only(top: 13.0),
+                        child: Text(
+                          "${userProvider.username.toUpperCase()}" ?? "",
+                          style: TextStyle(
+                            color: !_darkTheme
+                                ? Utils.customPurpleColor
+                                : Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            fontFamily: Utils.customFont,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          createColums("Dossiers", userProvider.totalRecords),
+                          createColums("Logements", 0),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              createButton(context, _darkTheme),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 1.2,
+                height: 76,
+                child: FlatButton(
+                  onPressed: () {
+                    userProvider.logOut();
+                    Navigator.pushNamed(context, Login.routeName);
+                  },
+                  child: Text(
+                    "Deconnexion",
+                    style: TextStyle(
+                      fontFamily: Utils.customFont,
+                      color: Colors.white,
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: !_darkTheme
+                      ? Utils.customPurpleColor
+                      : Utils.customGreenColor,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+              ),
+            ],
+          ),
+        );
+      } else {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor:
+                !_darkTheme ? Utils.customPurpleColor : Colors.black,
+            title: Text(
+              "Mon profile",
+              style: TextStyle(
+                  fontFamily: Utils.customFont,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            centerTitle: true,
+          ),
+          body: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(90),
+                child: Column(
+                  children: <Widget>[
+                    Center(
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.only(top: 13.0),
+                        child: Text(
+                          "${userProvider.username.toUpperCase()}" ?? "",
+                          style: TextStyle(
+                            color: !_darkTheme
+                                ? Utils.customPurpleColor
+                                : Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            fontFamily: Utils.customFont,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          createColums("Dossiers", userProvider.totalRecords),
+                          createColums("Logements", 0),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              createButton(context, _darkTheme),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 1.2,
+                height: 76,
+                child: FlatButton(
+                  onPressed: () {
+                    userProvider.logOut();
+                    Navigator.pushNamed(context, Login.routeName);
+                  },
+                  child: Text(
+                    "Deconnexion",
+                    style: TextStyle(
+                      fontFamily: Utils.customFont,
+                      color: Colors.white,
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: !_darkTheme
+                      ? Utils.customPurpleColor
+                      : Utils.customGreenColor,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    });
   }
 
   Column createColums(String title, int count) {
