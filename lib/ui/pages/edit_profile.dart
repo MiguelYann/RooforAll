@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:rooforall/data/provider/user_provider.dart';
+import 'package:rooforall/ui/resources/responsive/device_screen_type.dart';
 import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
+import 'package:rooforall/ui/resources/widgets/base_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfile extends StatefulWidget {
