@@ -40,6 +40,9 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       body: ListView(
         children: <Widget>[
+          SizedBox(
+            height: 10,
+          ),
           SvgPicture.asset(
             "assets/images/signup.svg",
             height: MediaQuery.of(context).size.height / 5,
