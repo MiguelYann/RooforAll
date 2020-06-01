@@ -16,22 +16,42 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-  print("Build setting");
+    print("Build setting");
     final themeNotifier = Provider.of<ThemeNotif>(context);
     _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        backgroundColor: !_darkTheme ? Utils.customPurpleColor : Colors.black,
+        title: Text(
+          'Parametres',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: Utils.customFont,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
         automaticallyImplyLeading: false,
       ),
       body: ListView(
         children: <Widget>[
           ListTile(
-            title: Text('Dark Theme'),
+            title: Text(
+              !_darkTheme ? 'Passer en mode Nuit' : "Passer en mode Clair ",
+              style: TextStyle(
+                fontFamily: Utils.customFont,
+                color: !_darkTheme ? Utils.customPurpleColor : Colors.white,
+                fontWeight: FontWeight.bold
+              ),
+            ),
             contentPadding: const EdgeInsets.only(left: 16.0),
             trailing: Transform.scale(
               scale: 0.4,
               child: DayNightSwitch(
+                moonColor: Utils.customGreenColor,
+                dayColor: Colors.grey,
+                sunColor: Utils.customPurpleColor,
+                nightColor: Colors.white10,
                 value: _darkTheme,
                 onChanged: (val) {
                   setState(() {

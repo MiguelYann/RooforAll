@@ -44,6 +44,17 @@ class _ProfilePageState extends State<ProfilePage> {
 
     final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: !_darkTheme ? Utils.customPurpleColor : Colors.black,
+        title: Text(
+          "Mon profile",
+          style: TextStyle(
+              fontFamily: Utils.customFont,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),
+        ),
+        centerTitle: true,
+      ),
       body: Column(
         children: <Widget>[
           Padding(
@@ -109,7 +120,9 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color:!_darkTheme ?  Utils.customPurpleColor: Utils.customGreenColor,
+              color: !_darkTheme
+                  ? Utils.customPurpleColor
+                  : Utils.customGreenColor,
               borderRadius: BorderRadius.circular(6),
             ),
           ),
@@ -172,7 +185,8 @@ createButtonTitleAndFunction(BuildContext context, bool isDarkMode,
       decoration: BoxDecoration(
         color: Colors.transparent,
         border: Border.all(
-            color: !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor),
+            color:
+                !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor),
         borderRadius: BorderRadius.circular(6),
       ),
       width: MediaQuery.of(context).size.width / 1.2,
@@ -183,7 +197,8 @@ createButtonTitleAndFunction(BuildContext context, bool isDarkMode,
           title,
           style: TextStyle(
             fontFamily: Utils.customFont,
-            color: !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor,
+            color:
+                !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
