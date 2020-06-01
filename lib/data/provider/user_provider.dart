@@ -60,8 +60,9 @@ class UserProvider with ChangeNotifier {
         'password': aPassword,
       }),
     );
-    _userPassword = aPassword;
-    _sharedPreferences.setString("userPassword", _userPassword);
+    _sharedPreferences.setString("userPassword", aPassword);
+    _userPassword = _sharedPreferences.getString("userPassword");
+    print("pwd STOCKER $userPassword");
     _userName = response.data["username"];
     print(response.data["username"]);
     _token = response.headers.value("authorization").substring(7);
@@ -91,11 +92,12 @@ class UserProvider with ChangeNotifier {
         options: Options(
           headers: {"Authorization": 'Bearer $_token'},
         ));
-    print("RESPONSE ${response.statusCode}");
     _userName = response.data["username"];
     _userMail = response.data["email"];
     print("USERMAIL $_userMail");
     _sharedPreferences.setString("username", _userName);
+    _userName = _sharedPreferences.get("username");
+    print("shared preerence $_userName");
     _sharedPreferences.setString("userMail", _userMail);
 
     _records = response.data["records"];
@@ -106,9 +108,10 @@ class UserProvider with ChangeNotifier {
 
   Future<dynamic> editProfileUser(
       {String username = "", String password = "", String picture = ""}) async {
-    print("TOKNE PROFILE $_token");
+    _sharedPreferences = await SharedPreferences.getInstance();
 
-   _dio.interceptors.add(LogInterceptor(request: true)); //开启请求日志
+    _dio.interceptors.add(LogInterceptor(request: true)); //开启请求日志
+
 
     final response = await _dio.put("$DEFAULT_URL/api/users",
         data: jsonEncode(
@@ -121,6 +124,17 @@ class UserProvider with ChangeNotifier {
           headers: {"Authorization": 'Bearer $_token'},
         ));
     _userName = response.data["username"];
+    _sharedPreferences.setString("username", _userName);
+    _sharedPreferences.setString("userPassword",password);
+    _userName = _sharedPreferences.get("username");
+    _userPassword = _sharedPreferences.getString("userPassword");
+    print("pwd after edit STOCKER $userPassword");
+
+
+
+    final partialResponse =  await logUser (username, password);
+
+    _token = partialResponse.headers.value("authorization").substring(7);
 
     print("edition profile ${response.data}");
   }

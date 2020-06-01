@@ -45,6 +45,7 @@ class _EditProfileState extends State<EditProfile> {
     if (_validEmail && _validName) {
       final userProvider = Provider.of<UserProvider>(context);
 
+
       userProvider.editProfileUser(
         username: _textEditingControllerUsername.text,
         password: _textEditingControllerPassword.text,
@@ -138,6 +139,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       key: _scaffoldGlobalKey,
       appBar: AppBar(
