@@ -32,7 +32,8 @@ class _EditProfileState extends State<EditProfile> {
   String imageProfile64 = "";
   final picker = ImagePicker();
 
-  updateData(BuildContext context) {
+  updateData(BuildContext context) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
       _textEditingControllerUsername.text.isEmpty
           ? _validName = false
@@ -45,11 +46,17 @@ class _EditProfileState extends State<EditProfile> {
     if (_validEmail && _validName) {
       final userProvider = Provider.of<UserProvider>(context);
 
-      userProvider.editProfileUser(
-        username: _textEditingControllerUsername.text,
-        password: _textEditingControllerPassword.text,
-        picture: imageProfile64,
-      );
+      if (_textEditingControllerUsername.text ==
+          sharedPreferences.get("username")) {
+        userProvider.editProfileUser(
+            username: "", password: _textEditingControllerPassword.text);
+      } else {
+        userProvider.editProfileUser(
+          username: _textEditingControllerUsername.text,
+          password: _textEditingControllerPassword.text,
+        );
+      }
+
       SnackBar successSnackBar = SnackBar(
         content: Text(
           "Profile mis a jour avec succes",
@@ -76,7 +83,6 @@ class _EditProfileState extends State<EditProfile> {
     setState(() {
       isLoadingImage = true;
       _imageProfile = File(pickedFile.path);
-
     });
     _sharedPreferences.setString("imageProfile", _imageProfile.path);
     print(_imageProfile.path);

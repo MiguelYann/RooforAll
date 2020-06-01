@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:rooforall/data/provider/user_provider.dart';
 import 'package:rooforall/data/repository/user_repository.dart';
 import 'package:rooforall/ui/pages/login.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
+import 'package:rooforall/ui/resources/widgets/bottom_navigation.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
 
 class SignUp extends StatefulWidget {
@@ -19,11 +22,12 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _passwordEditingController =
       TextEditingController();
 
-//  void _signUp(String username, String mail, String password) async {
-//    var response =
-//        await UserRepository().registerUser(username, mail, password);
-//    print(response);
-//  }
+  void _signUp(
+      String username, String mail, String password, BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    userProvider.registerUser(mail, username, password);
+    Navigator.pushNamed(context, BottomNavigation.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +62,7 @@ class _SignUpState extends State<SignUp> {
                 Container(
                     width: MediaQuery.of(context).size.width / 1.3,
                     child: UserInput(
+                      showPassword: false,
                       textInput: _emailEditingController,
                       prefixiconItem: Icons.email,
                       labelInput: 'Email',
@@ -99,15 +104,11 @@ class _SignUpState extends State<SignUp> {
                         fontWeight: FontWeight.bold),
                   ),
                   color: Utils.customGreenColor,
-                  onPressed: () {
-                    print(_emailEditingController.text);
-                    print(_userNameEditingController.text);
-                    print(_passwordEditingController.text);
-//                _signUp(
-//                    _emailEditingController.text,
-//                    _userNameEditingController.text,
-//                    _passwordEditingController.text);
-                  },
+                  onPressed: () => _signUp(
+                      _userNameEditingController.text,
+                      _emailEditingController.text,
+                      _passwordEditingController.text,
+                      context),
                 ),
               ),
               Padding(

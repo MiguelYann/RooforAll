@@ -85,11 +85,13 @@ class UserProvider with ChangeNotifier {
   Future<dynamic> registerUser(
       String aEmail, String anUsername, String aPassword) async {
     _sharedPreferences = await SharedPreferences.getInstance();
-
-    _sharedPreferences = await SharedPreferences.getInstance();
     var response = await _dio.post('$DEFAULT_URL/api/users/signUp',
         data: jsonEncode(
             {'email': aEmail, 'username': anUsername, 'password': aPassword}));
+
+    if (response.statusCode == 200) {
+      logUser(anUsername, aPassword);
+    }
     return response;
   }
 
@@ -119,7 +121,7 @@ class UserProvider with ChangeNotifier {
       {String username = "", String password = "", String picture = ""}) async {
     _sharedPreferences = await SharedPreferences.getInstance();
 
-    _dio.interceptors.add(LogInterceptor(request: true)); //开启请求日志
+    _dio.interceptors.add(LogInterceptor(requestBody: true)); //开启请求日志
 
     final response = await _dio.put("$DEFAULT_URL/api/users",
         data: jsonEncode(

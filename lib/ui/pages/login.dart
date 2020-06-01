@@ -156,6 +156,7 @@ class _LoginState extends State<Login> {
                     Container(
                         width: MediaQuery.of(context).size.width / 1.3,
                         child: UserInput(
+                          showPassword: false,
                           textInput: _userNameEditingController,
                           prefixiconItem: Icons.email,
                           labelInput: "Entrer votre nom d'utilisateur",
