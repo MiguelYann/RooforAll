@@ -79,58 +79,22 @@ class _HomeState extends State<Home> {
                                         if (snapshotImage.hasData) {
                                           return Stack(
                                             children: <Widget>[
-//                                              Container(
-//                                                height: 70,
-//                                                width: 70,
-//                                                decoration: BoxDecoration(
-//                                                  color: Colors.amber,
-//                                                  image: DecorationImage(
-//                                                    image: snapshotImage.data,
-//                                                    fit: BoxFit.cover,
-//                                                  ),
-//                                                  border: Border.all(
-//                                                      style: BorderStyle.none),
-//                                                  borderRadius:
-//                                                      BorderRadius.circular(40),
-//                                                ),
-//                                              ),
-
                                               CircleAvatar(
-                                                radius: 30,
+                                                radius: 52,
                                                 backgroundImage:
                                                     snapshotImage.data.image,
                                               ),
-                                              new Positioned(
-                                                right: 0,
-                                                child: new Container(
-                                                  padding: EdgeInsets.all(1),
-                                                  decoration: new BoxDecoration(
-                                                    color: Colors.red,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            6),
-                                                  ),
-                                                  constraints: BoxConstraints(
-                                                    minWidth: 12,
-                                                    minHeight: 12,
-                                                  ),
-                                                  child: new Text(
-                                                    '1',
-                                                    style: new TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 8,
-                                                        fontFamily:
-                                                            Utils.customFont,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                              )
                                             ],
                                           );
                                         } else {
-                                          return Text("No image");
+                                          return Stack(
+                                            children: <Widget>[
+                                              CircleAvatar(
+                                                  radius: 52.0,
+                                                  backgroundImage: NetworkImage(
+                                                      "https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_640.png")),
+                                            ],
+                                          );
                                         }
                                       },
                                     )

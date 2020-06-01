@@ -28,9 +28,8 @@ class _EditProfileState extends State<EditProfile> {
   bool _validName = true;
   bool _validEmail = true;
   File _imageProfile;
-  bool _mailValid = true;
   bool isLoadingImage = false;
-  String imageProfile64="";
+  String imageProfile64 = "";
   final picker = ImagePicker();
 
   updateData(BuildContext context) {
@@ -65,7 +64,8 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future<void> getImage() async {
-    SharedPreferences _sharedPreferences = await SharedPreferences.getInstance();
+    SharedPreferences _sharedPreferences =
+        await SharedPreferences.getInstance();
 
     final pickedFile =
         await picker.getImage(source: ImageSource.camera, imageQuality: 50);
@@ -78,28 +78,6 @@ class _EditProfileState extends State<EditProfile> {
       _imageProfile = File(pickedFile.path);
     });
     _sharedPreferences.setString("imageProfile", _imageProfile.path);
-  }
-
-
-
-  Future<void> retrieveLostData() async {
-    final LostData response = await picker.getLostData();
-    print("Lossst");
-    if (response == null) {
-      print("Lossst");
-
-      return;
-    }
-    if (response.file != null) {
-      final pickedFile =
-          await picker.getImage(source: ImageSource.camera, imageQuality: 50);
-
-      setState(() {
-        if (response.type == RetrieveType.image) {
-          _imageProfile = File(pickedFile.path);
-        }
-      });
-    }
   }
 
   @override

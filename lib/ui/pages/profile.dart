@@ -16,6 +16,26 @@ class _ProfilePageState extends State<ProfilePage> {
   final String currentUser = "";
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void getAndDisplayUserInformation() async {
+    setState(() {
+//      loading = true;
+    });
+
+
+
+//    _imageProfile = File(_sharePreferences.get("imageProfile")) ;
+
+
+    setState(() {
+//      loading = false;
+    });
+  }
+  @override
   Widget build(BuildContext context) {
     print("build profile");
     final userProvider = Provider.of<UserProvider>(context);

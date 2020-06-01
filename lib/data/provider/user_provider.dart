@@ -69,9 +69,11 @@ class UserProvider with ChangeNotifier {
     );
     _sharedPreferences.setString("userPassword", aPassword);
     _userPassword = _sharedPreferences.getString("userPassword");
-    print("pwd STOCKER $userPassword");
+//    print("pwd STOCKER $userPassword");
     _userName = response.data["username"];
-    print(response.data["username"]);
+    _sharedPreferences.setString("username", _userName);
+    _userName = _sharedPreferences.get("username");
+
     _token = response.headers.value("authorization").substring(7);
     _sharedPreferences.setString("token", _token);
     _token = _sharedPreferences.get("token");
@@ -147,6 +149,9 @@ class UserProvider with ChangeNotifier {
 
   void logOut() {
     _sharedPreferences.remove("token");
+    _sharedPreferences.remove("username");
+    _sharedPreferences.remove("userPassword");
+    _sharedPreferences.remove("imageProfile");
     _token = null;
     print("Logout");
     notifyListeners();
