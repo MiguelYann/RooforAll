@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 
-class Separated extends StatelessWidget {
+class RecordList extends StatelessWidget {
   final List<dynamic> datas;
 
-  const Separated({this.datas});
+  const RecordList({this.datas});
 
   @override
   Widget build(BuildContext context) {

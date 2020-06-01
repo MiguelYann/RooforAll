@@ -8,7 +8,7 @@ import 'package:rooforall/data/provider/user_provider.dart';
 import 'package:rooforall/data/models/news_description.dart';
 import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
-import 'package:rooforall/ui/resources/widgets/separated.dart';
+import 'package:rooforall/ui/resources/widgets/records_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' as Io;
 
@@ -100,33 +100,33 @@ class _HomeState extends State<Home> {
                                         },
                                       )
                                     : FutureBuilder(
-                                  future: getImageFromPath(
-                                    snapShot.data
-                                        .getString("imageProfile"),
-                                  ),
-                                  builder: (ctx, snapshotImage) {
-                                    if (snapshotImage.hasData) {
-                                      return Stack(
-                                        children: <Widget>[
-                                          CircleAvatar(
-                                            radius: 52,
-                                            backgroundImage:
-                                            snapshotImage.data.image,
-                                          ),
-                                        ],
-                                      );
-                                    } else {
-                                      return Stack(
-                                        children: <Widget>[
-                                          CircleAvatar(
-                                              radius: 52.0,
-                                              backgroundImage: NetworkImage(
-                                                  "https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_640.png")),
-                                        ],
-                                      );
-                                    }
-                                  },
-                                ),
+                                        future: getImageFromPath(
+                                          snapShot.data
+                                              .getString("imageProfile"),
+                                        ),
+                                        builder: (ctx, snapshotImage) {
+                                          if (snapshotImage.hasData) {
+                                            return Stack(
+                                              children: <Widget>[
+                                                CircleAvatar(
+                                                  radius: 52,
+                                                  backgroundImage:
+                                                      snapshotImage.data.image,
+                                                ),
+                                              ],
+                                            );
+                                          } else {
+                                            return Stack(
+                                              children: <Widget>[
+                                                CircleAvatar(
+                                                    radius: 52.0,
+                                                    backgroundImage: NetworkImage(
+                                                        "https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_640.png")),
+                                              ],
+                                            );
+                                          }
+                                        },
+                                      ),
                               ],
                             ),
                           )
@@ -175,7 +175,9 @@ class _HomeState extends State<Home> {
                                 ),
                                 Text(News.descriptionNews[index].title,
                                     style: TextStyle(
-                                      color: !_darkTheme ? Utils.customPurpleColor: Colors.white,
+                                      color: !_darkTheme
+                                          ? Utils.customPurpleColor
+                                          : Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: Utils.customFont,
                                     ))
@@ -221,6 +223,31 @@ class _HomeState extends State<Home> {
                   print("DATA REBUILD ${asynchrone.data}");
                   print(asynchrone.hasData);
                   if (asynchrone.hasData) {
+                    if (asynchrone.data["records"].length == 0) {
+                      return Padding(
+                        padding: EdgeInsets.all(30),
+                        child: Card(
+                          child: Container(
+                            height: MediaQuery.of(context).size.height / 8,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: !_darkTheme
+                                  ? Utils.customPurpleColor
+                                  : Colors.black,
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Aucun dossier pour l'instant",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: Utils.customFont),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
                     return Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
@@ -235,11 +262,16 @@ class _HomeState extends State<Home> {
                                   topRight: Radius.circular(40),
                                 ),
                               ),
-                              child:
-                                  Separated(datas: asynchrone.data["records"])),
+                              child: RecordList(
+                                  datas: asynchrone.data["records"])),
                         ]);
                   } else {
-                    return Text("");
+                    return Container(
+                      height: MediaQuery.of(context).size.height / 1.75,
+                      width: double.infinity,
+                      decoration: BoxDecoration(color: Colors.white),
+                      child: Text("No card"),
+                    );
                   }
                 }),
           ]),
