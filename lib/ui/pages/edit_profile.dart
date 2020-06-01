@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:rooforall/data/provider/user_provider.dart';
+import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -62,9 +63,10 @@ class _EditProfileState extends State<EditProfile> {
           "Profile mis a jour avec succes",
           style: TextStyle(
             fontFamily: Utils.customFont,
+            color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.green,
       );
       _scaffoldGlobalKey.currentState.showSnackBar(successSnackBar);
     }
@@ -113,11 +115,16 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    var _darkTheme = true;
+
+    final themeNotifier = Provider.of<ThemeNotif>(context);
+    _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
+
     return Scaffold(
       key: _scaffoldGlobalKey,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Utils.customGreenColor,
+        backgroundColor: !_darkTheme ? Utils.customGreenColor : Colors.black,
         title: Text(
           "Modifier mon profil",
           style: TextStyle(
@@ -130,7 +137,7 @@ class _EditProfileState extends State<EditProfile> {
           IconButton(
             icon: Icon(
               Icons.done,
-              color: Colors.white,
+              color: Utils.customGreenColor,
               size: 30.0,
             ),
             onPressed: () {
@@ -161,7 +168,9 @@ class _EditProfileState extends State<EditProfile> {
                           child: Text(
                             "Modifier image",
                             style: TextStyle(
-                              color: Utils.customGreenColor,
+                              color: !_darkTheme
+                                  ? Utils.customGreenColor
+                                  : Colors.white,
                               fontFamily: Utils.customFont,
                             ),
                           ),
@@ -177,9 +186,13 @@ class _EditProfileState extends State<EditProfile> {
                         Text(
                           "Nom utilisateur",
                           style: TextStyle(
-                              fontFamily: Utils.customFont,
-                              fontStyle: FontStyle.italic,
-                              color: Utils.customPurpleColor),
+                            fontFamily: Utils.customFont,
+                            fontStyle: FontStyle.italic,
+                            fontSize: 12,
+                            color: !_darkTheme
+                                ? Utils.customPurpleColor
+                                : Colors.white,
+                          ),
                         ),
                         createProfileNameTextFormField(context),
                       ],
@@ -193,9 +206,13 @@ class _EditProfileState extends State<EditProfile> {
                         Text(
                           "Mot de passe",
                           style: TextStyle(
-                              fontFamily: Utils.customFont,
-                              fontStyle: FontStyle.italic,
-                              color: Utils.customPurpleColor),
+                            fontFamily: Utils.customFont,
+                            fontStyle: FontStyle.italic,
+                            fontSize: 12,
+                            color: !_darkTheme
+                                ? Utils.customPurpleColor
+                                : Colors.white,
+                          ),
                         ),
                         createProfilePasswordTextFormField(),
                       ],
@@ -206,7 +223,7 @@ class _EditProfileState extends State<EditProfile> {
                     FlatButton(
                       onPressed: () => updateData(context),
                       child: Container(
-                        width: MediaQuery.of(context).size.width / 1,
+                        width: MediaQuery.of(context).size.width / 1.2,
                         height: 76,
                         child: Text(
                           "Enregistrer",
@@ -219,7 +236,9 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: Utils.customPurpleColor,
+                          color: !_darkTheme
+                              ? Utils.customPurpleColor
+                              : Utils.customGreenColor,
                           borderRadius: BorderRadius.circular(6),
                         ),
                       ),
@@ -240,6 +259,7 @@ class _EditProfileState extends State<EditProfile> {
           ),
           controller: _textEditingControllerUsername,
           decoration: InputDecoration(
+              prefixIcon: Icon(Icons.person),
               hintText: "Ecrire votre nom",
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
