@@ -59,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             centerTitle: true,
           ),
-          body: Column(
+          body: ListView(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(90),
@@ -148,7 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             centerTitle: true,
           ),
-          body: Column(
+          body: ListView(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(90),
@@ -236,7 +236,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             centerTitle: true,
           ),
-          body: Column(
+          body: ListView(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(90),
