@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:rooforall/ui/resources/widgets/separated.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io' as Io;
 
 class Home extends StatefulWidget {
   static final String routeName = "/home";
@@ -22,6 +25,12 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<Image> getImageFromPath(String path) async {
+    final bytes = await Io.File(path).readAsBytes();
+    final image64 = base64Encode(bytes);
+    return Image.memory(base64Decode(image64));
   }
 
   @override
@@ -62,49 +71,68 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                               !_darkTheme
-                                  ? Stack(
-                                      children: <Widget>[
-                                        Container(
-                                          height: 70,
-                                          width: 70,
-                                          decoration: BoxDecoration(
-                                            color: Colors.amber,
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
+                                  ? FutureBuilder(
+                                      future: getImageFromPath(
+                                        snapShot.data.getString("imageProfile"),
+                                      ),
+                                      builder: (ctx, snapshotImage) {
+                                        if (snapshotImage.hasData) {
+                                          return Stack(
+                                            children: <Widget>[
+//                                              Container(
+//                                                height: 70,
+//                                                width: 70,
+//                                                decoration: BoxDecoration(
+//                                                  color: Colors.amber,
+//                                                  image: DecorationImage(
+//                                                    image: snapshotImage.data,
+//                                                    fit: BoxFit.cover,
+//                                                  ),
+//                                                  border: Border.all(
+//                                                      style: BorderStyle.none),
+//                                                  borderRadius:
+//                                                      BorderRadius.circular(40),
+//                                                ),
+//                                              ),
+
+                                              CircleAvatar(
+                                                radius: 30,
+                                                backgroundImage:
+                                                    snapshotImage.data.image,
+                                              ),
+                                              new Positioned(
+                                                right: 0,
+                                                child: new Container(
+                                                  padding: EdgeInsets.all(1),
+                                                  decoration: new BoxDecoration(
+                                                    color: Colors.red,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6),
+                                                  ),
+                                                  constraints: BoxConstraints(
+                                                    minWidth: 12,
+                                                    minHeight: 12,
+                                                  ),
+                                                  child: new Text(
+                                                    '1',
+                                                    style: new TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 8,
+                                                        fontFamily:
+                                                            Utils.customFont,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    textAlign: TextAlign.center,
+                                                  ),
                                                 ),
-                                                fit: BoxFit.cover),
-                                            border: Border.all(
-                                                style: BorderStyle.none),
-                                            borderRadius:
-                                                BorderRadius.circular(40),
-                                          ),
-                                        ),
-                                        new Positioned(
-                                          right: 0,
-                                          child: new Container(
-                                            padding: EdgeInsets.all(1),
-                                            decoration: new BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                            ),
-                                            constraints: BoxConstraints(
-                                              minWidth: 12,
-                                              minHeight: 12,
-                                            ),
-                                            child: new Text(
-                                              '1',
-                                              style: new TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 8,
-                                                  fontFamily: Utils.customFont,
-                                                  fontWeight: FontWeight.bold),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ),
-                                        )
-                                      ],
+                                              )
+                                            ],
+                                          );
+                                        } else {
+                                          return Text("No image");
+                                        }
+                                      },
                                     )
                                   : Container(),
                             ],

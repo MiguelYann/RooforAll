@@ -30,6 +30,7 @@ class _EditProfileState extends State<EditProfile> {
   File _imageProfile;
   bool _mailValid = true;
   bool isLoadingImage = false;
+  String imageProfile64="";
   final picker = ImagePicker();
 
   updateData(BuildContext context) {
@@ -45,10 +46,10 @@ class _EditProfileState extends State<EditProfile> {
     if (_validEmail && _validName) {
       final userProvider = Provider.of<UserProvider>(context);
 
-
       userProvider.editProfileUser(
         username: _textEditingControllerUsername.text,
         password: _textEditingControllerPassword.text,
+        picture: imageProfile64,
       );
       SnackBar successSnackBar = SnackBar(
         content: Text(
@@ -63,36 +64,23 @@ class _EditProfileState extends State<EditProfile> {
     }
   }
 
-  Future getProfileImage() async {
-    File image;
-    image = await ImagePicker.pickImage(source: ImageSource.camera);
-    final bytes = await Io.File(image.path).readAsBytes();
-    String img64 = base64Encode(bytes);
-    print("IMAGEEEE ${img64.substring(0, 100)}");
-    setState(() {
-      isLoadingImage = true;
-      _imageProfile = image;
-    });
-  }
+  Future<void> getImage() async {
+    SharedPreferences _sharedPreferences = await SharedPreferences.getInstance();
 
-  Future getImage() async {
     final pickedFile =
         await picker.getImage(source: ImageSource.camera, imageQuality: 50);
 
     if (pickedFile.path == null) {
-      print("losr");
-      return;
+      return Future.value();
     }
-
     setState(() {
       isLoadingImage = true;
       _imageProfile = File(pickedFile.path);
     });
-    final bytes = await Io.File(_imageProfile.path).readAsBytes();
-    String img64 = base64Encode(bytes);
-//    print("IMAGEEEE ${img64.substring(0, 100)}");
-    print('$img64');
+    _sharedPreferences.setString("imageProfile", _imageProfile.path);
   }
+
+
 
   Future<void> retrieveLostData() async {
     final LostData response = await picker.getLostData();
@@ -139,7 +127,6 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: _scaffoldGlobalKey,
       appBar: AppBar(

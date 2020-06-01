@@ -17,6 +17,13 @@ class UserProvider with ChangeNotifier {
   List<dynamic> _records;
   bool seen = false;
   int totalRecords = 0;
+  String _imageProfile;
+
+  String get imageProfile => _imageProfile;
+
+  set imageProfile(String imageProfile) {
+    _imageProfile = imageProfile;
+  }
 
   UserProvider(this._token);
 
@@ -112,27 +119,26 @@ class UserProvider with ChangeNotifier {
 
     _dio.interceptors.add(LogInterceptor(request: true)); //开启请求日志
 
-
     final response = await _dio.put("$DEFAULT_URL/api/users",
         data: jsonEncode(
           {
             "username": username,
             "password": password,
+            "picture": picture,
           },
         ),
         options: Options(
           headers: {"Authorization": 'Bearer $_token'},
         ));
+
     _userName = response.data["username"];
     _sharedPreferences.setString("username", _userName);
-    _sharedPreferences.setString("userPassword",password);
+    _sharedPreferences.setString("userPassword", password);
     _userName = _sharedPreferences.get("username");
     _userPassword = _sharedPreferences.getString("userPassword");
     print("pwd after edit STOCKER $userPassword");
 
-
-
-    final partialResponse =  await logUser (username, password);
+    final partialResponse = await logUser(username, password);
 
     _token = partialResponse.headers.value("authorization").substring(7);
 
