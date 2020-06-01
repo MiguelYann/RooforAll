@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:rooforall/data/provider/user_provider.dart';
 import 'package:rooforall/data/repository/user_repository.dart';
 import 'package:rooforall/ui/pages/login.dart';
+import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:rooforall/ui/resources/widgets/bottom_navigation.dart';
 import 'package:rooforall/ui/resources/widgets/input_user.dart';
@@ -31,7 +32,11 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    print("Build Sign");
+    var _darkTheme = true;
+
+    final themeNotifier = Provider.of<ThemeNotif>(context);
+    _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
+
     return Scaffold(
       body: ListView(
         children: <Widget>[
@@ -47,7 +52,7 @@ class _SignUpState extends State<SignUp> {
                 style: TextStyle(
                     fontFamily: Utils.customFont,
                     fontSize: 25,
-                    color: Utils.customPurpleColor,
+                    color: !_darkTheme ? Utils.customPurpleColor: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -72,7 +77,7 @@ class _SignUpState extends State<SignUp> {
                     width: MediaQuery.of(context).size.width / 1.3,
                     child: UserInput(
                       textInput: _userNameEditingController,
-                      prefixiconItem: Icons.email,
+                      prefixiconItem: Icons.person,
                       labelInput: 'Nom utilisateur',
                     )),
                 Container(
@@ -99,11 +104,11 @@ class _SignUpState extends State<SignUp> {
                   child: Text(
                     "Je m'inscris",
                     style: TextStyle(
-                        color: Colors.white,
+                        color: !_darkTheme ? Colors.white : Utils.customPurpleColor,
                         fontFamily: Utils.customFont,
                         fontWeight: FontWeight.bold),
                   ),
-                  color: Utils.customGreenColor,
+                  color: ! _darkTheme ? Utils.customGreenColor: Colors.white,
                   onPressed: () => _signUp(
                       _userNameEditingController.text,
                       _emailEditingController.text,
@@ -124,6 +129,7 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(
                       color: Utils.customGreenColor,
                       fontSize: 15.0,
+                      fontFamily: Utils.customFont,
                       decoration: TextDecoration.underline,
                       fontWeight: FontWeight.w100,
                     ),

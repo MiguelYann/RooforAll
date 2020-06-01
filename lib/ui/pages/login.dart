@@ -158,7 +158,7 @@ class _LoginState extends State<Login> {
                         child: UserInput(
                           showPassword: false,
                           textInput: _userNameEditingController,
-                          prefixiconItem: Icons.email,
+                          prefixiconItem: Icons.person,
                           labelInput: "Entrer votre nom d'utilisateur",
                         )),
                     Container(
