@@ -190,7 +190,8 @@ class _LoginState extends State<Login> {
                 height: 37,
               ),
               Container(
-                width: MediaQuery.of(context).size.width / 1.5,
+                width: MediaQuery.of(context).size.width / 1.2,
+                height: MediaQuery.of(context).size.width / 8,
                 child: RaisedButton(
                   child: !_isLoading
                       ? Text(
@@ -216,7 +217,8 @@ class _LoginState extends State<Login> {
                 height: 17,
               ),
               Container(
-                width: MediaQuery.of(context).size.width / 1.5,
+                width: MediaQuery.of(context).size.width / 1.2,
+                height: MediaQuery.of(context).size.width / 8,
                 child: RaisedButton(
                     child: Text(
                       "S'inscrire",
