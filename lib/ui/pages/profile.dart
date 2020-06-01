@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rooforall/data/provider/user_provider.dart';
+import 'package:rooforall/ui/resources/responsive/device_screen_type.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
+import 'package:rooforall/ui/resources/widgets/base_widget.dart';
 
 import 'edit_profile.dart';
 import 'login.dart';
@@ -18,83 +20,88 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(98.0),
-        child: Column(
-          children: <Widget>[
-            Column(
+    // ignore: missing_return
+    return BaseWidget(builder: (context, sizingInformation) {
+      if (sizingInformation.deviceScreenType == DeviceScreenType.Mobile) {
+        return Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.all(98.0),
+            child: Column(
               children: <Widget>[
-                CircleAvatar(
-                  radius: 45.0,
-                  backgroundColor: Colors.grey,
-                  backgroundImage: NetworkImage(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
-                  ),
-                ),
-                Center(
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.only(top: 13.0),
-                    child: Text(
-                      userProvider.username,
-                      style: TextStyle(
-                        color: Utils.customPurpleColor,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: Utils.customFont,
+                Column(
+                  children: <Widget>[
+                    CircleAvatar(
+                      radius: 45.0,
+                      backgroundColor: Colors.grey,
+                      backgroundImage: NetworkImage(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
                       ),
                     ),
-                  ),
+                    Center(
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.only(top: 13.0),
+                        child: Text(
+                          userProvider.username,
+                          style: TextStyle(
+                            color: Utils.customPurpleColor,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: Utils.customFont,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          createColums("Dossiers", userProvider.totalRecords),
+                          createColums("Logements", 3),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
+                SizedBox(
+                  height: 50,
+                ),
+                createButton(context),
                 SizedBox(
                   height: 30,
                 ),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      createColums("Dossiers", userProvider.totalRecords),
-                      createColums("Logements", 3),
-                    ],
+                Container(
+                  width: MediaQuery.of(context).size.width / 1,
+                  height: 76,
+                  child: FlatButton(
+                    onPressed: () {
+                      userProvider.logOut();
+                      Navigator.pushNamed(context, Login.routeName);
+                    },
+                    child: Text(
+                      "Deconnexion",
+                      style: TextStyle(
+                        fontFamily: Utils.customFont,
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Utils.customPurpleColor,
+                    borderRadius: BorderRadius.circular(6),
                   ),
                 ),
               ],
             ),
-            SizedBox(
-              height: 50,
-            ),
-            createButton(context),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width / 1,
-              height: 76,
-              child: FlatButton(
-                onPressed: () {
-                  userProvider.logOut();
-                  Navigator.pushNamed(context, Login.routeName);
-                },
-                child: Text(
-                  "Deconnexion",
-                  style: TextStyle(
-                    fontFamily: Utils.customFont,
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Utils.customPurpleColor,
-                borderRadius: BorderRadius.circular(6),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+          ),
+        );
+      }
+    });
   }
 
   Column createColums(String title, int count) {

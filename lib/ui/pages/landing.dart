@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rooforall/data/models/slider_item.dart';
 import 'package:rooforall/ui/pages/login.dart';
-import 'package:rooforall/ui/resources/utils/theme.dart';
 import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:rooforall/ui/resources/widgets/slider_landing.dart';
