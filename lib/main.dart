@@ -18,7 +18,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences.getInstance().then((prefs) {
-    var darkModeOn = prefs.getBool('darkMode') ?? false;
+    var darkModeOn = prefs.getBool('darkMode') ?? true;
     String tokenId = prefs.get("token");
 //    bool isView = prefs.getBool("seen");
 //    print("is view $isView");

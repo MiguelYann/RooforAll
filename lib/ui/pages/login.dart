@@ -181,7 +181,7 @@ class _LoginState extends State<Login> {
                           'Mot de passe oublié',
                           style: TextStyle(
                               fontFamily: Utils.customFont,
-                              color: Utils.customGreenColor,
+                              color: !_darkTheme?Utils.customGreenColor: Colors.white,
                               fontSize: 12),
                         )),
                   ],
@@ -224,11 +224,11 @@ class _LoginState extends State<Login> {
                     child: Text(
                       "S'inscrire",
                       style: TextStyle(
-                          color: Colors.white,
+                          color: !_darkTheme? Colors.white: Utils.customGreenColor,
                           fontFamily: Utils.customFont,
                           fontWeight: FontWeight.bold),
                     ),
-                    color: Utils.customGreenColor,
+                    color: !_darkTheme ? Utils.customGreenColor: Colors.black12,
                     onPressed: () => navigateLoginToRegister(context)),
               ),
             ],

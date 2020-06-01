@@ -136,6 +136,7 @@ class UserProvider with ChangeNotifier {
         ));
 
     _userName = response.data["username"];
+    _sharedPreferences.setString("imageProfile", picture);
     _sharedPreferences.setString("username", _userName);
     _sharedPreferences.setString("userPassword", password);
     _userName = _sharedPreferences.get("username");

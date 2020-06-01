@@ -44,18 +44,18 @@ class UserInput extends StatelessWidget {
         ),
         prefixIcon: Icon(
           prefixiconItem,
-            color: _darkTheme ? Utils.customGreenColor:  Utils.customPurpleColor,
+            color: _darkTheme ? Colors.white:  Utils.customPurpleColor,
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             style: BorderStyle.solid,
-            color: _darkTheme ? Utils.customGreenColor:  Utils.customPurpleColor,
+            color: _darkTheme ?Colors.white:  Utils.customPurpleColor,
           ),
         ),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             style: BorderStyle.solid,
-            color: _darkTheme ? Utils.customGreenColor:  Utils.customPurpleColor,
+            color: _darkTheme ? Colors.white:  Utils.customPurpleColor,
           ),
         ),
       ),
