@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rooforall/data/provider/user_provider.dart';
+import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,58 +28,38 @@ class _ProfilePageState extends State<ProfilePage> {
 //      loading = true;
     });
 
-
-
 //    _imageProfile = File(_sharePreferences.get("imageProfile")) ;
-
 
     setState(() {
 //      loading = false;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    print("build profile");
+    var _darkTheme = true;
+
+    final themeNotifier = Provider.of<ThemeNotif>(context);
+    _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
+
     final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(98.0),
-        child: Column(
-          children: <Widget>[
-            Column(
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(90),
+            child: Column(
               children: <Widget>[
-//                FutureBuilder(
-//                  future: SharedPreferences.getInstance(),
-//                  builder: (ctx, snapshot) {
-//                  if(snapshot.hasData) {
-//                    return  CircleAvatar
-//                  (
-//                      radius: 45.0,
-//                      backgroundColor: Colors.grey,
-//                      backgroundImage: NetworkImage(
-//                      'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
-//                  ),
-//                    );
-//                  }
-//                    else {
-//                      return  CircleAvatar
-//                        (
-//                        radius: 45.0,
-//                        backgroundColor: Colors.grey,
-//                        backgroundImage: NetworkImage(
-//                          'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
-//                        ),
-//                      );
-//                  }
-//                    )      ,
                 Center(
                   child: Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.only(top: 13.0),
                     child: Text(
-                      "${userProvider.username.toUpperCase()}"?? "",
+                      "${userProvider.username.toUpperCase()}" ?? "",
                       style: TextStyle(
-                        color: Utils.customPurpleColor,
+                        color: !_darkTheme
+                            ? Utils.customPurpleColor
+                            : Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         fontFamily: Utils.customFont,
@@ -94,45 +75,45 @@ class _ProfilePageState extends State<ProfilePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       createColums("Dossiers", userProvider.totalRecords),
-                      createColums("Logements", 3),
+                      createColums("Logements", 0),
                     ],
                   ),
                 ),
               ],
             ),
-            SizedBox(
-              height: 50,
-            ),
-            createButton(context),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width / 1,
-              height: 76,
-              child: FlatButton(
-                onPressed: () {
-                  userProvider.logOut();
-                  Navigator.pushNamed(context, Login.routeName);
-                },
-                child: Text(
-                  "Deconnexion",
-                  style: TextStyle(
-                    fontFamily: Utils.customFont,
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          createButton(context, _darkTheme),
+          SizedBox(
+            height: 30,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width / 1.2,
+            height: 76,
+            child: FlatButton(
+              onPressed: () {
+                userProvider.logOut();
+                Navigator.pushNamed(context, Login.routeName);
+              },
+              child: Text(
+                "Deconnexion",
+                style: TextStyle(
+                  fontFamily: Utils.customFont,
+                  color: Colors.white,
+                  fontSize: 19,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Utils.customPurpleColor,
-                borderRadius: BorderRadius.circular(6),
-              ),
             ),
-          ],
-        ),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color:!_darkTheme ?  Utils.customPurpleColor: Utils.customGreenColor,
+              borderRadius: BorderRadius.circular(6),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -147,6 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
           style: TextStyle(
             color: Colors.amber,
             fontFamily: Utils.customFont,
+            fontSize: 19,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -165,9 +147,10 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  createButton(BuildContext context) {
+  createButton(BuildContext context, isDarkMode) {
     return createButtonTitleAndFunction(
       context,
+      isDarkMode,
       title: "Modifier mon profil",
       performFunction: () => editProfile(context),
     );
@@ -182,16 +165,17 @@ editProfile(BuildContext context) {
       ));
 }
 
-createButtonTitleAndFunction(BuildContext context,
+createButtonTitleAndFunction(BuildContext context, bool isDarkMode,
     {String title, Function performFunction}) {
   return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Colors.transparent,
-        border: Border.all(color: Utils.customPurpleColor),
+        border: Border.all(
+            color: !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor),
         borderRadius: BorderRadius.circular(6),
       ),
-      width: MediaQuery.of(context).size.width / 1,
+      width: MediaQuery.of(context).size.width / 1.2,
       height: 76,
       child: FlatButton(
         onPressed: performFunction,
@@ -199,8 +183,8 @@ createButtonTitleAndFunction(BuildContext context,
           title,
           style: TextStyle(
             fontFamily: Utils.customFont,
-            color: Utils.customPurpleColor,
-            fontSize: 15,
+            color: !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
