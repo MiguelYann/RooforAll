@@ -33,7 +33,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _passwordEditingController =
       TextEditingController();
 
-  bool isVisiblePassword = false;
+  bool isVisiblePassword = true;
   LogStatus logStatus = LogStatus.INITIAL;
 
   void showPassord() {

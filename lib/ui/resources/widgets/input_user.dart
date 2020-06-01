@@ -27,7 +27,7 @@ class UserInput extends StatelessWidget {
      final themeNotifier = Provider.of<ThemeNotif>(context);
     _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
     return TextField(
-      obscureText: showPassword ?? false,
+      obscureText: showPassword ?? true,
       controller: textInput,
       decoration: InputDecoration(
         hintText: labelInput,
