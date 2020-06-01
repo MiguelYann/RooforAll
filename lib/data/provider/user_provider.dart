@@ -8,7 +8,7 @@ class UserProvider with ChangeNotifier {
   static const DEFAULT_URL =
       'https://rooforall-1590500604408.azurewebsites.net';
 
-  String _userName;
+  String _userName="";
   String _userMail;
   String _userPassword;
   String _token;

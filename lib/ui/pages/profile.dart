@@ -104,30 +104,33 @@ class _ProfilePageState extends State<ProfilePage> {
               SizedBox(
                 height: 30,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width / 1.2,
-                height: 76,
-                child: FlatButton(
-                  onPressed: () {
-                    userProvider.logOut();
-                    Navigator.pushNamed(context, Login.routeName);
-                  },
-                  child: Text(
-                    "Deconnexion",
-                    style: TextStyle(
-                      fontFamily: Utils.customFont,
-                      color: Colors.white,
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
+              Padding(
+                padding: EdgeInsets.all(18),
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 2,
+                  height: 76,
+                  child: FlatButton(
+                    onPressed: () {
+                      userProvider.logOut();
+                      Navigator.pushNamed(context, Login.routeName);
+                    },
+                    child: Text(
+                      "Deconnexion",
+                      style: TextStyle(
+                        fontFamily: Utils.customFont,
+                        color: Colors.white,
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: !_darkTheme
-                      ? Utils.customPurpleColor
-                      : Utils.customGreenColor,
-                  borderRadius: BorderRadius.circular(6),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: !_darkTheme
+                        ? Utils.customPurpleColor
+                        : Utils.customGreenColor,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
                 ),
               ),
             ],
@@ -363,26 +366,29 @@ editProfile(BuildContext context) {
 
 createButtonTitleAndFunction(BuildContext context, bool isDarkMode,
     {String title, Function performFunction}) {
-  return Container(
-    alignment: Alignment.center,
-    decoration: BoxDecoration(
-      color: Colors.transparent,
-      border: Border.all(
-          color:
-              !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor),
-      borderRadius: BorderRadius.circular(6),
-    ),
-    width: MediaQuery.of(context).size.width / 1.2,
-    height: 76,
-    child: FlatButton(
-      onPressed: performFunction,
-      child: Text(
-        title,
-        style: TextStyle(
-          fontFamily: Utils.customFont,
-          color: !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
+  return Padding(
+    padding: EdgeInsets.all(18),
+    child: Container(
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        border: Border.all(
+            color:
+                !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      width: MediaQuery.of(context).size.width / 1.2,
+      height: 76,
+      child: FlatButton(
+        onPressed: performFunction,
+        child: Text(
+          title,
+          style: TextStyle(
+            fontFamily: Utils.customFont,
+            color: !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     ),

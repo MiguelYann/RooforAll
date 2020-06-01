@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
                                   children: <Widget>[
                                     Container(
                                       child: Text(
-                                        'Hello ${snapShot.data.getString("username")}',
+                                        'Hello ${snapShot.data.getString("username")??""}',
                                         style: TextStyle(
                                           fontFamily: Utils.customFont,
                                           fontSize: 25,
@@ -550,7 +550,7 @@ class _HomeState extends State<Home> {
                                   children: <Widget>[
                                     Container(
                                       child: Text(
-                                        'Hello ${snapShot.data.getString("username")}',
+                                        'Hello ${snapShot.data.getString("username")?? ""}',
                                         style: TextStyle(
                                           fontFamily: Utils.customFont,
                                           fontSize: 25,
