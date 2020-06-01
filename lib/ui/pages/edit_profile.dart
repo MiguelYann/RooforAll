@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:rooforall/data/provider/user_provider.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +21,7 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   TextEditingController _textEditingControllerUsername =
       TextEditingController();
-  TextEditingController _textEditingControllerUserMail =
+  TextEditingController _textEditingControllerPassword =
       TextEditingController();
   final _scaffoldGlobalKey = GlobalKey<ScaffoldState>();
   bool loading = false;
@@ -30,18 +32,23 @@ class _EditProfileState extends State<EditProfile> {
   bool isLoadingImage = false;
   final picker = ImagePicker();
 
-  updateData() {
+  updateData(BuildContext context) {
     setState(() {
       _textEditingControllerUsername.text.isEmpty
           ? _validName = false
           : _validName = true;
-      _textEditingControllerUserMail.text.isEmpty
+      _textEditingControllerPassword.text.isEmpty
           ? _validEmail = false
           : _validEmail = true;
     });
 
     if (_validEmail && _validName) {
-      //update
+      final userProvider = Provider.of<UserProvider>(context);
+
+      userProvider.editProfileUser(
+        username: _textEditingControllerUsername.text,
+        password: _textEditingControllerPassword.text,
+      );
       SnackBar successSnackBar = SnackBar(
         content: Text(
           "Profile mis a jour avec succes",
@@ -60,7 +67,7 @@ class _EditProfileState extends State<EditProfile> {
     image = await ImagePicker.pickImage(source: ImageSource.camera);
     final bytes = await Io.File(image.path).readAsBytes();
     String img64 = base64Encode(bytes);
-    print(img64.substring(0, 100));
+    print("IMAGEEEE ${img64.substring(0, 100)}");
     setState(() {
       isLoadingImage = true;
       _imageProfile = image;
@@ -75,10 +82,15 @@ class _EditProfileState extends State<EditProfile> {
       print("losr");
       return;
     }
+
     setState(() {
       isLoadingImage = true;
       _imageProfile = File(pickedFile.path);
     });
+    final bytes = await Io.File(_imageProfile.path).readAsBytes();
+    String img64 = base64Encode(bytes);
+//    print("IMAGEEEE ${img64.substring(0, 100)}");
+    print('$img64');
   }
 
   Future<void> retrieveLostData() async {
@@ -116,8 +128,8 @@ class _EditProfileState extends State<EditProfile> {
     _textEditingControllerUsername.text =
         _sharePreferences.getString("username");
 
-    _textEditingControllerUserMail.text =
-        _sharePreferences.getString("userMail");
+    _textEditingControllerPassword.text =
+        _sharePreferences.getString("userPassword");
 
     setState(() {
       loading = false;
@@ -204,20 +216,20 @@ class _EditProfileState extends State<EditProfile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "Adresse electronique",
+                          "Mot de passe",
                           style: TextStyle(
                               fontFamily: Utils.customFont,
                               fontStyle: FontStyle.italic,
                               color: Utils.customPurpleColor),
                         ),
-                        createProfileEmailTextFormField(),
+                        createProfilePasswordTextFormField(),
                       ],
                     ),
                     SizedBox(
                       height: 80,
                     ),
                     FlatButton(
-                      onPressed: updateData,
+                      onPressed: () => updateData(context),
                       child: Container(
                         width: MediaQuery.of(context).size.width / 1,
                         height: 76,
@@ -274,16 +286,19 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Container createProfileEmailTextFormField() {
+  Container createProfilePasswordTextFormField() {
     return Container(
       width: MediaQuery.of(context).size.width / 1.2,
       child: TextField(
         style: TextStyle(
           fontFamily: Utils.customFont,
         ),
-        controller: _textEditingControllerUserMail,
+        controller: _textEditingControllerPassword,
         decoration: InputDecoration(
-          hintText: "Ecrire votre email",
+          prefixIcon: Icon(
+            Icons.vpn_key,
+          ),
+          hintText: "Ecrire votre mot de passe",
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               style: BorderStyle.solid,
@@ -298,7 +313,7 @@ class _EditProfileState extends State<EditProfile> {
           ),
           hintStyle:
               TextStyle(color: Colors.grey, fontFamily: Utils.customFont),
-          errorText: _validEmail ? null : "Profile email is short",
+          errorText: _validEmail ? null : "Mot de passe court",
         ),
       ),
     );

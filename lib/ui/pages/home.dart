@@ -25,17 +25,17 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    print("REBUILD REBUIDL REBUILD");
+    print("REBUILD Home");
     var _darkTheme = true;
     final themeNotifier = Provider.of<ThemeNotif>(context);
     _darkTheme = (themeNotifier.getTheme() == Utils.darktheme);
-    final user = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: !_darkTheme ? Colors.white : Colors.black,
       body: FutureBuilder(
-        future: Provider.of<UserProvider>(context, listen: false)
+        future: Provider.of<UserProvider>(context, listen: true)
             .getUserInformation(),
         builder: (ctx, asynchrone) {
+          print("DATA REBUILD ${asynchrone.data}");
           print(asynchrone.hasData);
           if (asynchrone.hasData) {
             return SafeArea(
@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
                           children: <Widget>[
                             Container(
                               child: Text(
-                                'Hello ${user.username}',
+                                'Hello ${asynchrone.data["username"]}',
                                 style: TextStyle(
                                   fontFamily: Utils.customFont,
                                   fontSize: 25,
@@ -203,7 +203,7 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           child: Separated(
-                            datas: asynchrone.data,
+                            datas: asynchrone.data["records"],
                           )),
                     ],
                   ),

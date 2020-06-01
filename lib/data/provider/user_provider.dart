@@ -101,7 +101,29 @@ class UserProvider with ChangeNotifier {
     _records = response.data["records"];
     totalRecords = _records.length;
     print(_records);
-    return _records;
+    notifyListeners();
+    return response.data;
+  }
+
+  Future<dynamic> editProfileUser(
+      {String username = "", String password = "", String picture = ""}) async {
+    print("TOKNE PROFILE $_token");
+
+   _dio.interceptors.add(LogInterceptor(request: true)); //开启请求日志
+
+    final response = await _dio.put("$DEFAULT_URL/api/users",
+        data: jsonEncode(
+          {
+            "username": username,
+            "password": password,
+          },
+        ),
+        options: Options(
+          headers: {"Authorization": 'Bearer $_token'},
+        ));
+    _userName = response.data["username"];
+
+    print("edition profile ${response.data}");
   }
 
   void logOut() {

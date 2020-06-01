@@ -17,6 +17,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    print("build profile");
     final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: Padding(
@@ -37,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     alignment: Alignment.center,
                     padding: EdgeInsets.only(top: 13.0),
                     child: Text(
-                      userProvider.username,
+                      userProvider.username?? "",
                       style: TextStyle(
                         color: Utils.customPurpleColor,
                         fontWeight: FontWeight.bold,
