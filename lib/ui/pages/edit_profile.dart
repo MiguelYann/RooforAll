@@ -76,8 +76,10 @@ class _EditProfileState extends State<EditProfile> {
     setState(() {
       isLoadingImage = true;
       _imageProfile = File(pickedFile.path);
+
     });
     _sharedPreferences.setString("imageProfile", _imageProfile.path);
+    print(_imageProfile.path);
   }
 
   @override

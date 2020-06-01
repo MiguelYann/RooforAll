@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rooforall/data/provider/user_provider.dart';
 import 'package:rooforall/ui/resources/utils/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'edit_profile.dart';
 import 'login.dart';
@@ -46,22 +47,40 @@ class _ProfilePageState extends State<ProfilePage> {
           children: <Widget>[
             Column(
               children: <Widget>[
-                CircleAvatar(
-                  radius: 45.0,
-                  backgroundColor: Colors.grey,
-                  backgroundImage: NetworkImage(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
-                  ),
-                ),
+//                FutureBuilder(
+//                  future: SharedPreferences.getInstance(),
+//                  builder: (ctx, snapshot) {
+//                  if(snapshot.hasData) {
+//                    return  CircleAvatar
+//                  (
+//                      radius: 45.0,
+//                      backgroundColor: Colors.grey,
+//                      backgroundImage: NetworkImage(
+//                      'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
+//                  ),
+//                    );
+//                  }
+//                    else {
+//                      return  CircleAvatar
+//                        (
+//                        radius: 45.0,
+//                        backgroundColor: Colors.grey,
+//                        backgroundImage: NetworkImage(
+//                          'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTdn-7SHPiGEA0vsZW7e_qUqzQ4LEoMvHOVAPljSlVnxjJ9fKWl&usqp=CAU',
+//                        ),
+//                      );
+//                  }
+//                    )      ,
                 Center(
                   child: Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.only(top: 13.0),
                     child: Text(
-                      userProvider.username?? "",
+                      "${userProvider.username.toUpperCase()}"?? "",
                       style: TextStyle(
                         color: Utils.customPurpleColor,
                         fontWeight: FontWeight.bold,
+                        fontSize: 20,
                         fontFamily: Utils.customFont,
                       ),
                     ),

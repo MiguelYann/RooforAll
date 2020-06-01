@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rooforall/data/provider/picture_provider.dart';
 import 'package:rooforall/ui/pages/home.dart';
 import 'package:rooforall/ui/pages/profile.dart';
 import 'package:rooforall/ui/pages/setting.dart';
@@ -7,6 +9,7 @@ import 'package:rooforall/ui/resources/utils/utils.dart';
 
 class BottomNavigation extends StatefulWidget {
   static const String routeName = "/bottomNavigation";
+
   BottomNavigation({Key key, this.title}) : super(key: key);
 
   final String title;
@@ -48,7 +51,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
   Widget build(BuildContext context) {
     final List<Widget> _widgetsPage = [
       Home(),
-      ProfilePage(),
+      ChangeNotifierProvider.value(
+          value: PictureProvider(), child: ProfilePage()),
       SettingsPage(),
     ];
     return Scaffold(
