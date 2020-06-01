@@ -46,22 +46,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    print("Initial");
-
     super.initState();
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('state = $state');
-
-    print('App life Cycle');
-  }
 
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-    print('FINISHED');
   }
 
   loadWidget() async {

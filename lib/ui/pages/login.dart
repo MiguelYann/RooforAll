@@ -229,6 +229,7 @@ class _LoginState extends State<Login> {
                           fontWeight: FontWeight.bold),
                     ),
                     color: !_darkTheme ? Utils.customGreenColor: Colors.black12,
+
                     onPressed: () => navigateLoginToRegister(context)),
               ),
             ],

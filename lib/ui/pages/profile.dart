@@ -181,27 +181,27 @@ editProfile(BuildContext context) {
 createButtonTitleAndFunction(BuildContext context, bool isDarkMode,
     {String title, Function performFunction}) {
   return Container(
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        border: Border.all(
-            color:
-                !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor),
-        borderRadius: BorderRadius.circular(6),
-      ),
-      width: MediaQuery.of(context).size.width / 1.2,
-      height: 76,
-      child: FlatButton(
-        onPressed: performFunction,
-        child: Text(
-          title,
-          style: TextStyle(
-            fontFamily: Utils.customFont,
-            color:
-                !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      color: Colors.transparent,
+      border: Border.all(
+          color:
+              !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor),
+      borderRadius: BorderRadius.circular(6),
+    ),
+    width: MediaQuery.of(context).size.width / 1.2,
+    height: 76,
+    child: FlatButton(
+      onPressed: performFunction,
+      child: Text(
+        title,
+        style: TextStyle(
+          fontFamily: Utils.customFont,
+          color: !isDarkMode ? Utils.customPurpleColor : Utils.customGreenColor,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
         ),
-      ));
+      ),
+    ),
+  );
 }

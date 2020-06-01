@@ -42,6 +42,7 @@ class SliderLanding extends StatelessWidget {
           ),
           Text(
             description,
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: Utils.customFont,
               color: !_darkTheme

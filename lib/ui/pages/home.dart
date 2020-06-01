@@ -266,12 +266,7 @@ class _HomeState extends State<Home> {
                                   datas: asynchrone.data["records"])),
                         ]);
                   } else {
-                    return Container(
-                      height: MediaQuery.of(context).size.height / 1.75,
-                      width: double.infinity,
-                      decoration: BoxDecoration(color: Colors.white),
-                      child: Text("No card"),
-                    );
+                    return Center(child: CircularProgressIndicator());
                   }
                 }),
           ]),

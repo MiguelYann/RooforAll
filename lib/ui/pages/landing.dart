@@ -61,7 +61,6 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     var _darkTheme = true;
-    print("Build Landing");
     SharedPreferences.getInstance().then((pref) => {
           pref.setBool("seen", true)
         });
