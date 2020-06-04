@@ -33,7 +33,7 @@ class HousingItem extends StatelessWidget {
         footer: GridTileBar(
           trailing: Text(
             '$surface m2',
-            style: getStyle(Utils.customPurpleColor, FontWeight.bold),
+            style: getStyle(Utils.customGreenColor, FontWeight.bold),
           ),
           backgroundColor: Colors.black54,
           leading: Text(
