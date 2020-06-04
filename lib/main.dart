@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rooforall/data/provider/user_provider.dart';
-import 'package:rooforall/ui/pages/profile.dart';
-import 'package:rooforall/ui/pages/setting.dart';
-import 'package:rooforall/ui/resources/utils/theme.dart';
 import 'package:rooforall/ui/resources/utils/theme_notif.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:splashscreen/splashscreen.dart';
+
 import 'ui/pages/home.dart';
 import 'ui/pages/landing.dart';
 import 'ui/pages/login.dart';
 import 'ui/resources/utils/utils.dart';
 import 'ui/resources/widgets/bottom_navigation.dart';
-import 'package:splashscreen/splashscreen.dart';
 
 void main() {
   print("nooooo");
@@ -90,6 +88,7 @@ class AfterSplash extends StatelessWidget {
 
     return MaterialApp(
         routes: {
+
           Login.routeName: (_) => Login(),
           Home.routeName: (BuildContext context) => Home(),
           BottomNavigation.routeName: (BuildContext context) =>

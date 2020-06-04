@@ -90,7 +90,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           createColums("Dossiers", userProvider.totalRecords),
-                          createColums("Logements", 0),
                         ],
                       ),
                     ),
@@ -182,7 +181,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           createColums("Dossiers", userProvider.totalRecords),
-                          createColums("Logements", 0),
                         ],
                       ),
                     ),
@@ -270,7 +268,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           createColums("Dossiers", userProvider.totalRecords),
-                          createColums("Logements", 0),
                         ],
                       ),
                     ),

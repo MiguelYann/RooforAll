@@ -6,10 +6,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProvider with ChangeNotifier {
   static const DEFAULT_URL =
-      'https://rooforall-1590500604408.azurewebsites.net';
+      'http://192.168.1.50:8080';
 
   String _userName="";
   String _userMail;
+  int totalHousing;
   String _userPassword;
   String _token;
   bool isLogged = false;
@@ -77,7 +78,8 @@ class UserProvider with ChangeNotifier {
     _token = response.headers.value("authorization").substring(7);
     _sharedPreferences.setString("token", _token);
     _token = _sharedPreferences.get("token");
-//    print(_token);
+   print(_token);
+   print(response.statusCode);
     notifyListeners();
     return response;
   }
@@ -112,9 +114,24 @@ class UserProvider with ChangeNotifier {
     _sharedPreferences.setString("userMail", _userMail);
 
     _records = response.data["records"];
+
+
+
+    _sharedPreferences.setInt("totalLogements", totalHousing);
+    totalHousing = _sharedPreferences.get("totalLogements");
     totalRecords = _records.length;
     print(_records);
     return response.data;
+  }
+
+  Future<int> getTotalHousing()  {
+    for(int i = 0; i< _records.length; i++) {
+      if(_records[i]['houseList'].length !=0) {
+        totalHousing++;
+      }
+    }
+
+    return Future.value(totalHousing);
   }
 
   Future<dynamic> editProfileUser(
@@ -158,5 +175,20 @@ class UserProvider with ChangeNotifier {
     _token = null;
     print("Logout");
     notifyListeners();
+  }
+
+
+  getRecordById(int id) async {
+    _sharedPreferences = await SharedPreferences.getInstance();
+
+    print("GET INFO");
+    final response = await _dio.get('$DEFAULT_URL/api/records/$id',
+        options: Options(
+          headers: {"Authorization": 'Bearer $_token'},
+        ));
+
+
+    print(response.data);
+    return response.data;
   }
 }
